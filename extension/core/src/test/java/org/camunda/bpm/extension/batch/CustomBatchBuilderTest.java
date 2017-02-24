@@ -1,29 +1,40 @@
 package org.camunda.bpm.extension.batch;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.camunda.bpm.engine.test.assertions.ProcessEngineAssertions.processEngine;
+import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.managementService;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.camunda.bpm.engine.ManagementService;
 import org.camunda.bpm.engine.batch.Batch;
 import org.camunda.bpm.engine.impl.batch.BatchSeedJobHandler;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.management.JobDefinition;
 import org.camunda.bpm.engine.runtime.Job;
-import org.junit.Ignore;
+import org.camunda.bpm.engine.test.ProcessEngineRule;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
-@Ignore
 public class CustomBatchBuilderTest {
 
-    TestCustomBatchJobHandler testCustomBatchJobHandler;
+    @Rule
+    public final ProcessEngineRule processEngineRule = new ProcessEngineRule();
 
-    ProcessEngineConfigurationImpl configuration;
+    private TestCustomBatchJobHandler testCustomBatchJobHandler = new TestCustomBatchJobHandler();
 
-    ManagementService managementService;
+    private ProcessEngineConfigurationImpl configuration;
 
     private List<String> data = Arrays.asList("Test", "Test2", "Test3", "Test4");
+
+    @Before
+    public void setUp() throws Exception {
+        configuration = (ProcessEngineConfigurationImpl) processEngine().getProcessEngineConfiguration();
+        configuration.setCustomBatchJobHandlers(new ArrayList<>());
+        configuration.getCustomBatchJobHandlers().add(testCustomBatchJobHandler);
+    }
 
     @Test
     public void create_batch_with_defaults() throws Exception {
@@ -37,11 +48,11 @@ public class CustomBatchBuilderTest {
         assertThat(batch.getBatchJobsPerSeed()).isEqualTo(100); //Default camunda value
         assertThat(batch.getInvocationsPerBatchJob()).isEqualTo(1); //Default camunda value
 
-        final Batch batchLookup = managementService.createBatchQuery().singleResult();
+        final Batch batchLookup = managementService().createBatchQuery().singleResult();
         assertThat(batchLookup).isNotNull();
 
         //Cleanup
-        managementService.deleteBatch(batchLookup.getId(), true);
+        managementService().deleteBatch(batchLookup.getId(), true);
     }
 
     @Test
@@ -58,11 +69,11 @@ public class CustomBatchBuilderTest {
         assertThat(batch.getBatchJobsPerSeed()).isEqualTo(10);
         assertThat(batch.getInvocationsPerBatchJob()).isEqualTo(5);
 
-        final Batch batchLookup = managementService.createBatchQuery().singleResult();
+        final Batch batchLookup = managementService().createBatchQuery().singleResult();
         assertThat(batchLookup).isNotNull();
 
         //Cleanup
-        managementService.deleteBatch(batchLookup.getId(), true);
+        managementService().deleteBatch(batchLookup.getId(), true);
     }
 
     @Test
@@ -80,7 +91,7 @@ public class CustomBatchBuilderTest {
         assertThat(seedJob).isNotNull();
 
         //Cleanup
-        managementService.deleteBatch(batch.getId(), true);
+        managementService().deleteBatch(batch.getId(), true);
     }
 
     @Test
@@ -100,11 +111,11 @@ public class CustomBatchBuilderTest {
         assertThat(list.size()).isEqualTo(2);
 
         //Cleanup
-        managementService.deleteBatch(batch.getId(), true);
+        managementService().deleteBatch(batch.getId(), true);
     }
 
     private JobDefinition getSeedJobDefinition(Batch batch) {
-        return managementService.createJobDefinitionQuery()
+        return managementService().createJobDefinitionQuery()
             .jobDefinitionId(batch.getSeedJobDefinitionId())
             .jobType(BatchSeedJobHandler.TYPE)
             .singleResult();
@@ -116,7 +127,7 @@ public class CustomBatchBuilderTest {
 
     private Job getJobForDefinition(JobDefinition jobDefinition) {
         if (jobDefinition != null) {
-            return managementService.createJobQuery()
+            return managementService().createJobQuery()
                 .jobDefinitionId(jobDefinition.getId())
                 .singleResult();
         }
@@ -126,19 +137,19 @@ public class CustomBatchBuilderTest {
     }
 
     private List<Job> getJobsForDefinition(JobDefinition jobDefinition) {
-        return managementService.createJobQuery()
+        return managementService().createJobQuery()
             .jobDefinitionId(jobDefinition.getId())
             .list();
     }
 
     private JobDefinition getGeneratorJobDefinition(Batch batch) {
-        return managementService.createJobDefinitionQuery()
+        return managementService().createJobDefinitionQuery()
             .jobDefinitionId(batch.getBatchJobDefinitionId())
             .jobType(batch.getType())
             .singleResult();
     }
 
     private void executeJob(String jobId) {
-        managementService.executeJob(jobId);
+        managementService().executeJob(jobId);
     }
 }
