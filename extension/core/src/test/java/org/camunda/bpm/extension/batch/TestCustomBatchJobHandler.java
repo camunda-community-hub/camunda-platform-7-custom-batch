@@ -18,7 +18,6 @@ public class TestCustomBatchJobHandler extends CustomBatchJobHandler<String> {
 
     @Override
     public String getType() {
-        // TODO provide sensible implementation
         return "test-type";
     }
 }
