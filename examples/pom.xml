@@ -29,5 +29,6 @@
   </dependencyManagement>
 
   <modules>
+      <module>example-simple</module>
   </modules>
 </project>

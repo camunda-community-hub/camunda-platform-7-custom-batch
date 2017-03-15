@@ -9,6 +9,5 @@
     <version>0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>${extension.groupId}</groupId>
   <artifactId>camunda-bpm-custom-batch-core</artifactId>
 </project>
