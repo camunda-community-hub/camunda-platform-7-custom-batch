@@ -100,6 +100,9 @@ public class CustomBatchBuilder<T> {
   public Batch create(CommandExecutor executor) {
     initDefaults();
 
+    if(executor == null)
+      executor = this.engineConfiguration.getCommandExecutorTxRequired();
+
     return executor.execute((commandContext) -> {
       final CustomBatchConfiguration configuration = new CustomBatchConfiguration<>(this.batchData);
 
@@ -119,7 +122,7 @@ public class CustomBatchBuilder<T> {
   }
 
   public Batch create() {
-    return create(engineConfiguration.getCommandExecutorTxRequired());
+    return create(null);
   }
 
   private int calculateTotalJobs() {
