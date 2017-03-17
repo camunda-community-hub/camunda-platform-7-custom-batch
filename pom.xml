@@ -32,22 +32,26 @@
     <example.groupId>org.camunda.bpm.extension.batch.example</example.groupId>
 
     <camunda.version>7.6.0</camunda.version>
-    <slf4j.version>1.7.23</slf4j.version>
+    <slf4j.version>1.7.24</slf4j.version>
     <commons-lang3.version>3.5</commons-lang3.version>
 
     <surefire.runOrder>reversealphabetical</surefire.runOrder>
   </properties>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.camunda.bpm</groupId>
+        <artifactId>camunda-bom</artifactId>
+        <version>${camunda.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.19.1</version>
-        <configuration>
-          <runOrder>${surefire.runOrder}</runOrder>
-        </configuration>
-      </plugin>
-    </plugins>
+    <defaultGoal>clean install</defaultGoal>
   </build>
 
   <licenses>

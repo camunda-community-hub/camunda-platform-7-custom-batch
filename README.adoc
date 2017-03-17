@@ -1,1 +1,46 @@
+# camunda-bpm-custom-batch
 
+## What is this about?
+
+## Why do I need this?
+
+## Get started
+
+Maven Dependency
+
+```<dependency>
+  <groupId>org.camunda.bpm.extension.batch.project</groupId>
+  <artifactId>camunda-bpm-custom-batch-core</artifactId>
+  <version>0.1-SNAPSHOT</version>
+</dependency>```
+
+Create a Jobhandler for the batch
+
+```@Component
+public class SimpleCustomBatchJobHandler extends CustomBatchJobHandler<String> {
+  @Override
+  public void execute(List<String> data, CommandContext commandContext) {
+      logger.info("Work on data: {}", data.get(0));
+  }
+
+  @Override
+  public String getType() {
+      return "simple-batch-handler";
+  }
+}```
+
+Register the jobhandler to camunda, e.g. with spring-boot:
+
+```@Bean
+public ProcessEnginePlugin customBatchHandlerPlugin(SimpleCustomBatchJobHandler simpleCustomBatchJobHandler) {
+  return new CustomBatchHandlerPlugin(Collections.singletonList(simpleCustomBatchJobHandler));
+}
+```
+
+Create a batch
+
+```CustomBatchBuilder.of(listOfStringData)
+ .configuration(processEngineConfiguration)
+ .jobHandler(simpleCustomBatchJobHandler)
+ .create();
+```

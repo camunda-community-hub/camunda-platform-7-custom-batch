@@ -25,7 +25,7 @@ public class SimpleApplication {
   }
 
   @Bean
-  public ProcessEnginePlugin simpleEnginePlugin(SimpleCustomBatchJobHandler simpleCustomBatchJobHandler) {
+  public ProcessEnginePlugin customBatchHandlerPlugin(SimpleCustomBatchJobHandler simpleCustomBatchJobHandler) {
     return new CustomBatchHandlerPlugin(Collections.singletonList(simpleCustomBatchJobHandler));
   }
 }

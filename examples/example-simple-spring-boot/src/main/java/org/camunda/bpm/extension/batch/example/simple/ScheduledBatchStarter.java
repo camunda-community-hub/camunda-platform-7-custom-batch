@@ -35,15 +35,17 @@ public class ScheduledBatchStarter {
   @Scheduled(initialDelay = 5000L, fixedDelay = 5000L)
   public void exitApplicationWhenProcessIsFinished() {
     logger.info("Create new batch");
-    final List<String> demoData = getDemoData("Batch"+String.valueOf(count++)+"_");
+    final List<String> simpleStringList = getSimpleStringList("Batch"+String.valueOf(count)+"_");
 
-    CustomBatchBuilder.of(demoData)
+    CustomBatchBuilder.of(simpleStringList)
       .configuration(processEngineConfiguration)
       .jobHandler(simpleCustomBatchJobHandler)
       .create();
+
+    count++;
   }
 
-  private List<String> getDemoData(String prefix) {
+  private List<String> getSimpleStringList(String prefix) {
     final List<String> data = new ArrayList<>();
     for(int i = 0; i < 10; i++) {
       data.add(prefix+nextRandomId());

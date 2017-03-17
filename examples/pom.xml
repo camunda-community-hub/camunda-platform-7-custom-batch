@@ -16,19 +16,7 @@
     <spring-boot.version>1.4.3.RELEASE</spring-boot.version>
   </properties>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.camunda.bpm</groupId>
-        <artifactId>camunda-bom</artifactId>
-        <version>${camunda.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <modules>
-      <module>example-simple</module>
+      <module>example-simple-spring-boot</module>
   </modules>
 </project>
