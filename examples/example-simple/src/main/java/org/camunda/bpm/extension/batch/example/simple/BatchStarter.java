@@ -30,6 +30,11 @@ public class BatchStarter implements Runnable, InitializingBean {
   }
 
   @Override
+  public void afterPropertiesSet() throws Exception {
+    new Thread(this).start();
+  }
+
+  @Override
   public void run() {
     while(true) {
       logger.info("Create new Batch" + String.valueOf(count));
@@ -59,10 +64,5 @@ public class BatchStarter implements Runnable, InitializingBean {
 
   private String nextRandomId() {
     return new BigInteger(130, random).toString(32);
-  }
-
-  @Override
-  public void afterPropertiesSet() throws Exception {
-    new Thread(this).start();
   }
 }

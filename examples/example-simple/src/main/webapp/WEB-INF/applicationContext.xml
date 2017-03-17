@@ -22,13 +22,8 @@
     <property name="dataSource" ref="dataSource" />
   </bean>
 
-  <bean id="processEngineConfiguration" class="org.camunda.bpm.engine.spring.SpringProcessEngineConfiguration">
-    <property name="processEngineName" value="engine" />
-    <property name="dataSource" ref="dataSource" />
-    <property name="transactionManager" ref="transactionManager" />
-    <property name="databaseSchemaUpdate" value="true" />
+  <bean id="processEngineConfiguration" class="org.camunda.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
     <property name="jobExecutorActivate" value="true" />
-    <property name="deploymentResources" value="classpath*:*.bpmn" />
 
     <property name="processEnginePlugins">
       <list>
