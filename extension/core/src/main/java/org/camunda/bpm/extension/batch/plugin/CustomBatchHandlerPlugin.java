@@ -1,6 +1,7 @@
 package org.camunda.bpm.extension.batch.plugin;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.camunda.bpm.engine.impl.batch.BatchJobHandler;
@@ -13,6 +14,10 @@ public class CustomBatchHandlerPlugin extends AbstractProcessEnginePlugin {
 
     public CustomBatchHandlerPlugin(List<BatchJobHandler<?>> batchJobHandler) {
         this.batchJobHandler = batchJobHandler;
+    }
+
+    public CustomBatchHandlerPlugin(BatchJobHandler<?> batchJobHandler) {
+      this.batchJobHandler = Collections.singletonList(batchJobHandler);
     }
 
     public static CustomBatchHandlerPlugin of(List<BatchJobHandler<?>> batchJobHandler) {
