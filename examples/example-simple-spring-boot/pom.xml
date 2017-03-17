@@ -7,7 +7,7 @@
     <version>0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>camunda-bpm-custom-batch-example-simple</artifactId>
+  <artifactId>camunda-bpm-custom-batch-example-simple-spring-boot</artifactId>
 
   <dependencyManagement>
     <dependencies>

@@ -4,19 +4,16 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.camunda.bpm.engine.ProcessEngineConfiguration;
 import org.camunda.bpm.extension.batch.CustomBatchBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
-@Component
-public class ScheduledBatchStarter {
+public class BatchStarter implements Runnable, InitializingBean {
 
-  private final Logger logger = LoggerFactory.getLogger(this.getClass());
+  private final Logger logger = Logger.getLogger(this.getClass().getName());
 
   private SimpleCustomBatchJobHandler simpleCustomBatchJobHandler;
 
@@ -27,22 +24,29 @@ public class ScheduledBatchStarter {
   private int count = 0;
 
   @Autowired
-  private ScheduledBatchStarter(ProcessEngineConfiguration configuration, SimpleCustomBatchJobHandler jobHandler) {
+  public BatchStarter(ProcessEngineConfiguration configuration, SimpleCustomBatchJobHandler jobHandler) {
     this.simpleCustomBatchJobHandler = jobHandler;
     this.processEngineConfiguration = configuration;
   }
 
-  @Scheduled(initialDelay = 5000L, fixedDelay = 5000L)
-  public void exitApplicationWhenProcessIsFinished() {
-    logger.info("Create new Batch");
-    final List<String> simpleStringList = getSimpleStringList("Batch"+String.valueOf(count)+"_");
+  @Override
+  public void run() {
+    while(true) {
+      logger.info("Create new Batch" + String.valueOf(count));
+      final List<String> simpleStringList = getSimpleStringList("Batch" + String.valueOf(count) + "_");
 
-    CustomBatchBuilder.of(simpleStringList)
-      .configuration(processEngineConfiguration)
-      .jobHandler(simpleCustomBatchJobHandler)
-      .create();
+      CustomBatchBuilder.of(simpleStringList)
+        .configuration(processEngineConfiguration)
+        .jobHandler(simpleCustomBatchJobHandler)
+        .create();
 
-    count++;
+      count++;
+
+      try {
+        Thread.sleep(5000);
+      } catch (InterruptedException e) {
+      }
+    }
   }
 
   private List<String> getSimpleStringList(String prefix) {
@@ -55,5 +59,10 @@ public class ScheduledBatchStarter {
 
   private String nextRandomId() {
     return new BigInteger(130, random).toString(32);
+  }
+
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    new Thread(this).start();
   }
 }

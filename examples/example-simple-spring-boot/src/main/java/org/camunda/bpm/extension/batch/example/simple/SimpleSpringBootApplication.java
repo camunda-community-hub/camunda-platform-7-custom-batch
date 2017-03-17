@@ -13,10 +13,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 @EnableProcessApplication("mySimpleApplication")
-public class SimpleApplication {
+public class SimpleSpringBootApplication {
 
   public static void main(final String... args) throws Exception {
-    SpringApplication.run(SimpleApplication.class, args);
+    SpringApplication.run(SimpleSpringBootApplication.class, args);
   }
 
   @Bean
