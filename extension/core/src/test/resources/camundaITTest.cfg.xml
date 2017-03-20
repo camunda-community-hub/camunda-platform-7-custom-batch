@@ -7,7 +7,7 @@
   <bean id="processEngineConfiguration"
         class="org.camunda.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
 
-    <property name="jobExecutorActivate" value="false"/>
+    <property name="jobExecutorActivate" value="true"/>
     <property name="databaseSchemaUpdate" value="true" />
 
     <property name="processEnginePlugins">

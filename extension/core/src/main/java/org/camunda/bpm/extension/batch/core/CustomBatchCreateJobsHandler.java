@@ -62,7 +62,7 @@ public abstract class CustomBatchCreateJobsHandler<T> implements BatchJobHandler
     public void deleteJobs(BatchEntity batch) {
         Context.getCommandContext().getJobManager()
             .findJobsByJobDefinitionId(batch.getBatchJobDefinitionId())
-            .stream().peek(JobEntity::delete);
+            .forEach(JobEntity::delete);
     }
 
     private JobEntity createBatchJob(BatchEntity batch, List<T> dataForJob) {

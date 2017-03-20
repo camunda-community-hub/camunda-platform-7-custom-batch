@@ -22,7 +22,7 @@
   </modules>
 
   <properties>
-    <version.java>1.8</version.java>
+    <java.version>1.8</java.version>
 
     <encoding>UTF-8</encoding>
     <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
@@ -52,6 +52,16 @@
 
   <build>
     <defaultGoal>clean install</defaultGoal>
+
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 
   <licenses>

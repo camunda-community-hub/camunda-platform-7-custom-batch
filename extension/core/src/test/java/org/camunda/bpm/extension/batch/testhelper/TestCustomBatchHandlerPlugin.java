@@ -1,4 +1,4 @@
-package org.camunda.bpm.extension.batch;
+package org.camunda.bpm.extension.batch.testhelper;
 
 import java.util.Collections;
 

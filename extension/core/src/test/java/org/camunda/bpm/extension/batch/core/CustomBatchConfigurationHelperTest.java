@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Arrays;
 import java.util.List;
 
+import org.camunda.bpm.extension.batch.testhelper.TestConfigObject;
 import org.junit.Test;
 
 public class CustomBatchConfigurationHelperTest {
