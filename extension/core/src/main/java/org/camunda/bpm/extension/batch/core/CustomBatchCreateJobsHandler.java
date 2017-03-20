@@ -22,7 +22,7 @@ public abstract class CustomBatchCreateJobsHandler<T> implements BatchJobHandler
     public boolean createJobs(BatchEntity batch) {
         final JobManager jobManager = Context.getCommandContext().getJobManager();
 
-        final CustomBatchConfiguration configuration = readConfiguration(batch.getConfigurationBytes());
+        final CustomBatchConfiguration<T> configuration = readConfiguration(batch.getConfigurationBytes());
 
         List<T> data = configuration.getData();
         // view of process instances to process
@@ -66,8 +66,8 @@ public abstract class CustomBatchCreateJobsHandler<T> implements BatchJobHandler
     }
 
     private JobEntity createBatchJob(BatchEntity batch, List<T> dataForJob) {
-        final CustomBatchConfiguration<T> jobConfiguration = new CustomBatchConfiguration(dataForJob);
-        final ByteArrayEntity configurationEntity = CustomBatchConfigurationHelper.saveConfiguration(jobConfiguration);
+        final CustomBatchConfiguration<T> jobConfiguration = new CustomBatchConfiguration<>(dataForJob);
+        final ByteArrayEntity configurationEntity = CustomBatchConfigurationHelper.of().saveConfiguration(jobConfiguration);
 
         final BatchJobContext creationContext = new BatchJobContext(batch, configurationEntity);
         return JOB_DECLARATION.createJobInstance(creationContext);
@@ -84,7 +84,7 @@ public abstract class CustomBatchCreateJobsHandler<T> implements BatchJobHandler
     }
 
     @Override
-    public CustomBatchConfiguration readConfiguration(byte[] serializedConfiguration) {
-        return CustomBatchConfigurationHelper.readConfiguration(serializedConfiguration);
+    public CustomBatchConfiguration<T> readConfiguration(byte[] serializedConfiguration) {
+        return CustomBatchConfigurationHelper.<T>of().readConfiguration(serializedConfiguration);
     }
 }

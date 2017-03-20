@@ -53,7 +53,7 @@ public class CustomBatchBuilder<T> {
    * @param jobHandler ... Batch job handler which should be used
    * @return CustomBatchBuilder
    */
-  public CustomBatchBuilder<T> jobHandler(BatchJobHandler jobHandler) {
+  public CustomBatchBuilder<T> jobHandler(BatchJobHandler<CustomBatchConfiguration<T>> jobHandler) {
     this.batchJobHandler = jobHandler;
     this.batch.setType(jobHandler.getType());
     return this;
@@ -90,7 +90,7 @@ public class CustomBatchBuilder<T> {
    * List of data which should be processed by the batch jobs.
    *
    * @param data ... Data for Batch
-   * @return
+   * @return CustomBatchBuilder
    */
   public CustomBatchBuilder<T> batchData(List<T> data) {
     this.batchData = data;
@@ -104,7 +104,7 @@ public class CustomBatchBuilder<T> {
       executor = this.engineConfiguration.getCommandExecutorTxRequired();
 
     return executor.execute((commandContext) -> {
-      final CustomBatchConfiguration configuration = new CustomBatchConfiguration<>(this.batchData);
+      final CustomBatchConfiguration<T> configuration = new CustomBatchConfiguration<>(this.batchData);
 
       this.batch.setConfigurationBytes(this.batchJobHandler.writeConfiguration(configuration));
       this.batch.setTotalJobs(calculateTotalJobs());

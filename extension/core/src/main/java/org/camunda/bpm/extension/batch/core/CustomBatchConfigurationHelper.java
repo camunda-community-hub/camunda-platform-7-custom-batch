@@ -8,14 +8,18 @@ import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.persistence.entity.ByteArrayEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.ByteArrayManager;
 
-public class CustomBatchConfigurationHelper {
+public class CustomBatchConfigurationHelper<T> {
 
-    public static CustomBatchConfiguration readConfiguration(byte[] serializedConfiguration) {
-        List<Object> data = (List<Object>) SerializationUtils.deserialize(serializedConfiguration);
-        return new CustomBatchConfiguration(data);
+    public static <T> CustomBatchConfigurationHelper<T> of() {
+      return new CustomBatchConfigurationHelper<>();
     }
 
-    public static ByteArrayEntity saveConfiguration(CustomBatchConfiguration jobConfiguration) {
+    public CustomBatchConfiguration<T> readConfiguration(byte[] serializedConfiguration) {
+        List<T> data = SerializationUtils.deserialize(serializedConfiguration);
+        return new CustomBatchConfiguration<>(data);
+    }
+
+    public ByteArrayEntity saveConfiguration(CustomBatchConfiguration jobConfiguration) {
         final ByteArrayManager byteArrayManager = Context.getCommandContext().getByteArrayManager();
 
         final ByteArrayEntity configurationEntity = new ByteArrayEntity();

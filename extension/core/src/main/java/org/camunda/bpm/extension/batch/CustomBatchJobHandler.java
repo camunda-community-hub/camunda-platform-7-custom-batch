@@ -21,7 +21,7 @@ public abstract class CustomBatchJobHandler<T> extends CustomBatchCreateJobsHand
         final ByteArrayEntity configurationEntity = commandContext
             .getDbEntityManager()
             .selectById(ByteArrayEntity.class, configuration.getConfigurationByteArrayId());
-        final CustomBatchConfiguration jobConfiguration = readConfiguration(configurationEntity.getBytes());
+        final CustomBatchConfiguration<T> jobConfiguration = readConfiguration(configurationEntity.getBytes());
 
         execute(jobConfiguration.getData(), commandContext);
     }
