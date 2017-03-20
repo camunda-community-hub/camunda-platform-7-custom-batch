@@ -17,7 +17,7 @@ public class CustomBatchBuilder<T> {
 
   private ProcessEngineConfigurationImpl engineConfiguration;
 
-  private BatchJobHandler<CustomBatchConfiguration<T>> batchJobHandler;
+  private BatchJobHandler<CustomBatchConfiguration> batchJobHandler;
 
   private List<T> batchData;
 
@@ -53,7 +53,7 @@ public class CustomBatchBuilder<T> {
    * @param jobHandler ... Batch job handler which should be used
    * @return CustomBatchBuilder
    */
-  public CustomBatchBuilder<T> jobHandler(BatchJobHandler<CustomBatchConfiguration<T>> jobHandler) {
+  public CustomBatchBuilder<T> jobHandler(BatchJobHandler<CustomBatchConfiguration> jobHandler) {
     this.batchJobHandler = jobHandler;
     this.batch.setType(jobHandler.getType());
     return this;
