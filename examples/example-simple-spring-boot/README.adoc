@@ -1,0 +1,6 @@
+# example-simple-spring-boot
+
+Simple example which uses an embedded engine.
+Every 5 seconds a batch will be created which works on a list of random string data.
+
+Start with mvn spring-boot:run.

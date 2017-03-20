@@ -1,22 +1,26 @@
 # camunda-bpm-custom-batch
 
-## What is this about?
-
-## Why do I need this?
+The goal of this camunda extension is to provide an simple way of using the camunda batch functionality.
+Camunda Batch could be used to split a huge workload into small asynchronous jobs.
+But up to now there is no simple way to use this, because it’s just used for camunda internal batch operations.
+With this extension, we want to open the camunda batch functionality to everyone.
 
 ## Get started
 
-Maven Dependency
+The extension will be published on maven central, so if you are using maven, just add the dependency:
 
-```<dependency>
+```
+<dependency>
   <groupId>org.camunda.bpm.extension.batch.project</groupId>
   <artifactId>camunda-bpm-custom-batch-core</artifactId>
   <version>0.1-SNAPSHOT</version>
-</dependency>```
+</dependency>
+```
 
-Create a Jobhandler for the batch
+First you have to define an own job handler for working on the single batch data:
 
-```@Component
+```
+@Component
 public class SimpleCustomBatchJobHandler extends CustomBatchJobHandler<String> {
   @Override
   public void execute(List<String> data, CommandContext commandContext) {
@@ -27,20 +31,45 @@ public class SimpleCustomBatchJobHandler extends CustomBatchJobHandler<String> {
   public String getType() {
       return "simple-batch-handler";
   }
-}```
+}
+```
 
-Register the jobhandler to camunda, e.g. with spring-boot:
+Next you have to notify the engine about this job handler, e.g. with spring-boot:
 
-```@Bean
+```
+@Bean
 public ProcessEnginePlugin customBatchHandlerPlugin(SimpleCustomBatchJobHandler simpleCustomBatchJobHandler) {
   return new CustomBatchHandlerPlugin(Collections.singletonList(simpleCustomBatchJobHandler));
 }
 ```
 
-Create a batch
+Finally, the creation of the batch itself:
 
-```CustomBatchBuilder.of(listOfStringData)
- .configuration(processEngineConfiguration)
+```
+CustomBatchBuilder.of(listOfStringData)
  .jobHandler(simpleCustomBatchJobHandler)
  .create();
-```
+ ```
+
+## Resources
+
+* link:./CONTRIBUTE.md[Contributing] - check this if you want to contribute
+
+## Roadmap
+
+**todo**
+- Provide a data collector class
+- Provide a timer job for automatically triggering of batch creation.
+
+**done**
+- Provide initial version
+
+
+## Maintainer
+
+*  _https://github.com/pschalk[Patrick Schalk]_
+
+
+## License
+
+Apache License, Version 2.0
