@@ -49,9 +49,15 @@ public class CustomBatchItTest {
   public void jobIsInErrorStateAfterException() throws Exception {
     batch = getDefaultBatch(Arrays.asList(null, null));
 
-    Thread.sleep(1000); //Job Executer is async and needs some time
-
-    final List<Job> list = getJobsForDefinition(getGeneratorJobDefinition(batch));
+    //Wait for Jobexecuter
+    List<Job> list = new ArrayList<>();
+    for(int i = 0; i<20; i++) {
+      Thread.sleep(500);
+      list = getJobsForDefinition(getGeneratorJobDefinition(batch));
+      if(list.size() > 0) {
+        break;
+      }
+    }
 
     assertThat(list.get(0).getExceptionMessage()).isNotEmpty();
   }
