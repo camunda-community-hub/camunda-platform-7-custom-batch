@@ -6,7 +6,6 @@ a| image::https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="./LIC
 
 The goal of this camunda extension is to provide an simple way of using the camunda batch functionality.
 Camunda Batch could be used to split a huge workload into small asynchronous jobs.
-But up to now there is no simple way to use this, because it’s just used for camunda internal batch operations.
 With this extension, we want to open the camunda batch functionality to everyone.
 
 ## Get started
@@ -62,10 +61,12 @@ CustomBatchBuilder.of(listOfStringData)
 ## Roadmap
 
 **todo**
+
 - Provide a data collector class
 - Provide a timer job for automatically triggering of batch creation.
 
 **done**
+
 - Provide initial version
 
 
