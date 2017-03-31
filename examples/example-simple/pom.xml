@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>${project.groupId}</groupId>
+    <groupId>${project-misc.groupId}</groupId>
     <artifactId>camunda-bpm-custom-batch-example-root</artifactId>
     <version>0.1-SNAPSHOT</version>
   </parent>
