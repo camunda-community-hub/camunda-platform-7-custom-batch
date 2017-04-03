@@ -8,7 +8,7 @@
     <version>0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>${project-misc.groupId}</groupId>
+  <groupId>org.camunda.bpm.extension.batch.project</groupId>
   <artifactId>camunda-bpm-custom-batch-example-root</artifactId>
   <packaging>pom</packaging>
 
