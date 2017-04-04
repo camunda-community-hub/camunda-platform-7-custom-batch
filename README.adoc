@@ -50,8 +50,19 @@ Finally, the creation of the batch itself:
 
 ```
 CustomBatchBuilder.of(listOfStringData)
- .jobHandler(simpleCustomBatchJobHandler)
- .create();
+  .jobHandler(simpleCustomBatchJobHandler)
+  .create();
+```
+
+Or with more configuration:
+
+```
+CustomBatchBuilder.of(listOfStringData)
+  .configuration(engineConfiguration)
+  .jobHandler(simpleCustomBatchJobHandler)
+  .jobsPerSeed(10)
+  .invocationsPerBatchJob(5)
+  .create(engineConfiguration.getCommandExecutorTxRequired());
 ```
 
 ## Resources
@@ -72,7 +83,13 @@ CustomBatchBuilder.of(listOfStringData)
 
 ## Maintainer
 
-*  _https://github.com/pschalk[Patrick Schalk]_
+* [Patrick Schalk](_https://github.com/pschalk_) - [Holisticon AG](_http://www.holisticon.de/_)
+* [Stefan Becke](_https://github.com/stefanbecke_) - [Kühne + Nagel](_https://home.kuehne-nagel.com/_)
+
+## Sponsor
+
+image::./docs/sponsor_kn.jpeg[alt="Logo"]
+_https://home.kuehne-nagel.com/[Kühne + Nagel]_
 
 
 ## License
