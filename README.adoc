@@ -16,7 +16,7 @@ The extension will be published on maven central, so if you are using maven, jus
 <dependency>
   <groupId>org.camunda.bpm.extension.batch.project</groupId>
   <artifactId>camunda-bpm-custom-batch-core</artifactId>
-  <version>0.1-SNAPSHOT</version>
+  <version>1.0.0</version>
 </dependency>
 ```
 
