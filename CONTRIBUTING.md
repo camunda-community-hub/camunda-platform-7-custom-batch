@@ -2,7 +2,7 @@
 
 There are several ways in which you may contribute to this project.
 
-* [File issues](link-to-issue-tracker)
+* [File issues](https://github.com/camunda/camunda-bpm-custom-batch/issues)
 * [Submit a pull requests](#submit-a-pull-request)
 
 Read more on [how to get the project up and running](#project-setup).
@@ -20,7 +20,4 @@ If you would like to submit a pull request make sure to
 
 _Perform the following steps to get a development setup up and running._
 
-- step1
-- step2
-- ...
-- stepN
+- mvn clean install

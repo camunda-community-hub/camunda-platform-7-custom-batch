@@ -67,6 +67,14 @@ CustomBatchBuilder.of(listOfStringData)
 
 ## Resources
 
+* link:./extension/README.adoc[User Guide]
+
+* _https://github.com/camunda/camunda-bpm-custom-batch/issues[Issue Tracker]_
+
+* _https://forum.camunda.org/c/community-extensions/custom-batch[Discussion Forum]_
+
+* _https://docs.camunda.org/manual/7.6/user-guide/process-engine/batch/[Camunda Batch Docs]_
+
 * link:./CONTRIBUTE.md[Contributing] - check this if you want to contribute
 
 ## Roadmap
@@ -74,7 +82,7 @@ CustomBatchBuilder.of(listOfStringData)
 **todo**
 
 - Provide a data collector class
-- Provide a timer job for automatically triggering of batch creation.
+- Provide a timer job for automatically triggering of batch creation
 
 **done**
 
