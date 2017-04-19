@@ -71,12 +71,12 @@
     </license>
   </licenses>
 
-  <!-- scm>
-    <connection>scm:git:git@github.com:holisticon/camunda-bpm-custom-batch.git</connection>
-    <url>scm:git:git@github.com:holisticon/camunda-bpm-custom-batch.git</url>
-    <developerConnection>scm:git:git@github.com:holisticon/camunda-bpm-custom-batch.git</developerConnection>
+  <scm>
+    <connection>scm:git:git@github.com:camunda/camunda-bpm-custom-batch.git</connection>
+    <url>scm:git:git@github.com:camunda/camunda-bpm-custom-batch.git</url>
+    <developerConnection>scm:git:git@github.com:camunda/camunda-bpm-custom-batch.git</developerConnection>
     <tag>HEAD</tag>
-  </scm -->
+  </scm>
 
   <!-- repositories used for distribution of releases and snapshots, DO NOT CHANGE -->
   <distributionManagement>
