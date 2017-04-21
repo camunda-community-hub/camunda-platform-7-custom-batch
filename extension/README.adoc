@@ -1,36 +1,47 @@
 # camunda-bpm-custom-batch User Guide
 
-## What is camunda batch
+## What Is Camunda Batch
 
-Currently camunda batch is mainly used for offloading the workload during internally commands like e.g. process migration or process cancellation.
+Currently Camunda Batch is mainly used for offloading the workload of internal commands like e.g. process migration or process cancellation.
 
-So if you e.g. choose 10000 processes for process migration, the engine will create an batch which will handle those instances in small chunks.
-By default, the batch will join 100 jobs, where each job will work on one process migration. (In it's own transaction!)
-After this, it will create another 100 jobs, until the work on all instances is finished.
-Benefit of this is that the migration will not block anything, and there is also not just one big transaction.
+So if you for example select 10000 processes for process migration, the engine will create a batch which will handle those instances in small chunks.
+By default, the batch will create 100 jobs, where each job will work on one process migration. (In it's own transaction!)
+After this, it will create another 100 jobs and so on, until the work on all instances is finished.
+Benefit of this is that the migration will not block anything and that there is not just one big transaction.
 
 Additionally, the cockpit already provides a view to monitor batches. (_https://docs.camunda.org/manual/7.6/webapps/cockpit/batch/monitoring/[See also]_)
 
-For more information regarding camunda batch, visit also camundas user guide: _https://docs.camunda.org/manual/7.6/user-guide/process-engine/batch/[User Guide]_
+For more information regarding Camunda Batch, visit also Camunda's user guide: _https://docs.camunda.org/manual/7.6/user-guide/process-engine/batch/[User Guide]_
 
-## Why this extension
+## Why This Extension?
 
-Up to now there is just a predefined set of commands, and it's very time consuming and complex to define an own batch.
-With this extension it will be much more easier to do create an own batch.
-This could be helpful to e.g. offload hugh workload like doing reassignment of user tasks.
+Using Camunda Batch for your own purposes is a very time consuming and complex thing.
+With this extension it will be much more easier to create an own batch.
+This could be helpful to offload huge workload like doing reassignments of user tasks.
 
-## How to use
+# How to Use
 
-### Provide implementation of CustomBatchJobHandler
+## Overview
 
-Job Handler will be called by job executor to work on small chunks of batch data.
+A new batch is created with help of the the `CustomBatchBuilder` and a specific `BatchJobHandler` for a set of batch data.
+The `BatchJobHandler` has two functions: Help creating all the necessary jobs and processing the individual items from the batch data.
 
-You just have to provide two methods there:
+With the default configuration, there will exist one job for each data item.
+The jobs are created in small chunks which have to be processed until the next chunk is created.
 
-* execute(List<T> data, CommandContext commandContext)
+Each job will have it's piece of data processed by calling the same `BatchJobHandler`.
 
-This method will be called by the batch job.
-It depends on the configuration of the batch (invocationsPerBatchJob) how much data you will get here.
+## Implementation Steps
+
+### Provide Implementation of CustomBatchJobHandler
+
+You have to provide two methods:
+
+* execute(List<T> jobData, CommandContext commandContext)
+
+This method will be called by the batch job to process a piece of the batch data.
+It depends on the configuration of the batch (invocationsPerBatchJob) how many items you will get.
+In other words, `jobData` will contain a maximum of `invocationsPerBatchJob` number of items.
 
 * getType()
 
@@ -41,8 +52,8 @@ The name / id of the job handler.
 @Component
 public class MyCustomBatchJobHandler extends CustomBatchJobHandler<String> {
   @Override
-  public void execute(List<String> data, CommandContext commandContext) {
-      logger.info("Work on data: {}", data.get(0));
+  public void execute(List<String> jobData, CommandContext commandContext) {
+      logger.info("Work on data: {}", jobData.get(0));
   }
 
   @Override
@@ -52,7 +63,7 @@ public class MyCustomBatchJobHandler extends CustomBatchJobHandler<String> {
 }
 ```
 
-The abstract CustomBatchJobHandler takes care about:
+The abstract `CustomBatchJobHandler` takes care about:
 
 * Creating Jobs + saving Configuration to ByteArray Table
 
@@ -60,10 +71,10 @@ The abstract CustomBatchJobHandler takes care about:
 
 * Cleanup of Jobs + Configuration
 
-### Register job handler
+### Register CustomBatchJobHandler Implementation
 
 You have to register the implementation of the job handler during startup of engine.
-This can be done by passing the job handler to the CustomBatchHandlerPlugin and adding this plugin to the engine.
+This can be done by passing the job handler to the `CustomBatchHandlerPlugin` and adding this plugin to the engine.
 
 .With spring boot it would be enough to provide this as a bean:
 ```
@@ -94,9 +105,9 @@ Examples:
 
 * _https://github.com/camunda/camunda-bpm-custom-batch/blob/master/extension/core/src/test/resources/camunda.cfg.xml[camunda.cfg.xml]_
 
-### Create the batch
+### Create the Batch
 
-For creating the batch, you have to use the CustomBatchBuilder.
+For creating the batch, you have to use the `CustomBatchBuilder`.
 
 In the minimum setting (with default batch values and configuration from Context) this looks like:
 
@@ -118,7 +129,7 @@ The builder takes care about:
 
 * Saves you from handling with ConfigurationBytes
 
-### Configuration of the batch
+### Configuration of the Batch
 
 The batch could be configured during building it with CustomBatchBuilder:
 
@@ -131,7 +142,7 @@ The batch could be configured during building it with CustomBatchBuilder:
         .create(configuration.getCommandExecutorTxRequired());
 ```
 
-#### configuration
+#### Property `configuration`
 
 Per default, the builder tries to get the process engine configuration from context.
 
@@ -146,7 +157,7 @@ CustomBatchBuilder.of().configuration(configuration)
 ```
 
 
-#### jobHandler
+#### Property `jobHandler`
 
 Here you have to provide the batch job handler which should be used by the batch.
 
@@ -154,7 +165,7 @@ Here you have to provide the batch job handler which should be used by the batch
 CustomBatchBuilder.of().jobHandler(simpleCustomBatchJobHandler)
 ```
 
-#### jobsPerSeed
+#### Property  `jobsPerSeed`
 
 Number of batch execution jobs created per seed job invocation.
 The batch seed job is invoked until it has created all batch execution jobs required by the batch.
@@ -166,7 +177,7 @@ CustomBatchBuilder.of().jobsPerSeed(10)
 Default is 100
 
 
-#### invocationsPerBatchJob
+#### Property `invocationsPerBatchJob`
 
 How many data should be passed to the job handler.
 
