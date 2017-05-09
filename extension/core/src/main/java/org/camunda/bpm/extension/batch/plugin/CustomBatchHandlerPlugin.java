@@ -24,6 +24,14 @@ public class CustomBatchHandlerPlugin extends AbstractProcessEnginePlugin {
         return new CustomBatchHandlerPlugin(batchJobHandler);
     }
 
+  public static CustomBatchHandlerPlugin of(BatchJobHandler<?> batchJobHandler) {
+    return new CustomBatchHandlerPlugin(batchJobHandler);
+  }
+
+    public static CustomBatchHandlerPlugin deactivate() {
+      return new CustomBatchHandlerPlugin(new ArrayList<>());
+    }
+
     @Override
     public void preInit(ProcessEngineConfigurationImpl processEngineConfiguration) {
         if (processEngineConfiguration.getCustomBatchJobHandlers() == null) {
