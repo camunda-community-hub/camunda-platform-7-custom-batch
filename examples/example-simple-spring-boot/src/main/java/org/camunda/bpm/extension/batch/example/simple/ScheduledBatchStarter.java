@@ -35,7 +35,7 @@ public class ScheduledBatchStarter {
   @Scheduled(initialDelay = 5000L, fixedDelay = 5000L)
   public void exitApplicationWhenProcessIsFinished() {
     logger.info("Create new Batch");
-    final List<String> simpleStringList = getSimpleStringList("Batch"+String.valueOf(count)+"_");
+    final List<String> simpleStringList = getSimpleStringList("Batch" + String.valueOf(count) + "_");
 
     CustomBatchBuilder.of(simpleStringList)
       .configuration(processEngineConfiguration)
@@ -47,8 +47,8 @@ public class ScheduledBatchStarter {
 
   private List<String> getSimpleStringList(String prefix) {
     final List<String> data = new ArrayList<>();
-    for(int i = 0; i < 10; i++) {
-      data.add(prefix+nextRandomId());
+    for (int i = 0; i < 10; i++) {
+      data.add(prefix + nextRandomId());
     }
     return data;
   }

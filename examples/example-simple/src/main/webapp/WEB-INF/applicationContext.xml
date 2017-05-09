@@ -4,26 +4,27 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                          http://www.springframework.org/schema/beans/spring-beans.xsd
                          http://www.springframework.org/schema/context
-                         http://www.springframework.org/schema/context/spring-context-2.5.xsd" >
+                         http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
   <bean id="dataSource" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
     <property name="targetDataSource">
       <bean class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-        <property name="driverClass" value="org.h2.Driver" />
+        <property name="driverClass" value="org.h2.Driver"/>
         <property name="url"
-                  value="jdbc:h2:mem:process-engine;DB_CLOSE_DELAY=1000" />
-        <property name="username" value="sa" />
-        <property name="password" value="" />
+                  value="jdbc:h2:mem:process-engine;DB_CLOSE_DELAY=1000"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
       </bean>
     </property>
   </bean>
 
   <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-    <property name="dataSource" ref="dataSource" />
+    <property name="dataSource" ref="dataSource"/>
   </bean>
 
-  <bean id="processEngineConfiguration" class="org.camunda.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
-    <property name="jobExecutorActivate" value="true" />
+  <bean id="processEngineConfiguration"
+        class="org.camunda.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
+    <property name="jobExecutorActivate" value="true"/>
 
     <property name="processEnginePlugins">
       <list>
@@ -39,16 +40,16 @@
   </bean>
 
   <bean id="processEngine" class="org.camunda.bpm.engine.spring.ProcessEngineFactoryBean">
-    <property name="processEngineConfiguration" ref="processEngineConfiguration" />
+    <property name="processEngineConfiguration" ref="processEngineConfiguration"/>
   </bean>
 
-  <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
-  <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
-  <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
-  <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
-  <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
+  <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService"/>
+  <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService"/>
+  <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService"/>
+  <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService"/>
+  <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService"/>
 
-  <context:annotation-config />
+  <context:annotation-config/>
 
   <bean class="org.camunda.bpm.extension.batch.example.simple.SimpleCustomBatchJobHandler"/>
   <bean class="org.camunda.bpm.extension.batch.example.simple.BatchStarter"/>

@@ -36,7 +36,7 @@ public class BatchStarter implements Runnable, InitializingBean {
 
   @Override
   public void run() {
-    while(true) {
+    while (true) {
       logger.info("Create new Batch" + String.valueOf(count));
       final List<String> simpleStringList = getSimpleStringList("Batch" + String.valueOf(count) + "_");
 
@@ -56,8 +56,8 @@ public class BatchStarter implements Runnable, InitializingBean {
 
   private List<String> getSimpleStringList(String prefix) {
     final List<String> data = new ArrayList<>();
-    for(int i = 0; i < 10; i++) {
-      data.add(prefix+nextRandomId());
+    for (int i = 0; i < 10; i++) {
+      data.add(prefix + nextRandomId());
     }
     return data;
   }

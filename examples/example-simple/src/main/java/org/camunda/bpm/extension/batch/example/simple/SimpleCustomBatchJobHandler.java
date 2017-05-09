@@ -14,11 +14,9 @@ public class SimpleCustomBatchJobHandler extends CustomBatchJobHandler<String> {
 
   @Override
   public void execute(List<String> data, CommandContext commandContext) {
-      logger.info("Work on data: "+ data.get(0));
+    logger.info("Work on data: " + data.get(0));
   }
 
   @Override
-  public String getType() {
-      return TYPE;
-  }
+  public String getType() { return TYPE; }
 }

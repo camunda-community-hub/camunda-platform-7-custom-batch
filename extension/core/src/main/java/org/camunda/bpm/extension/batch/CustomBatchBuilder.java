@@ -100,7 +100,7 @@ public class CustomBatchBuilder<T> {
   public Batch create(CommandExecutor executor) {
     initDefaults();
 
-    if(executor == null)
+    if (executor == null)
       executor = this.engineConfiguration.getCommandExecutorTxRequired();
 
     return executor.execute((commandContext) -> {
@@ -130,15 +130,15 @@ public class CustomBatchBuilder<T> {
   }
 
   private void initDefaults() {
-    if(this.engineConfiguration == null) {
+    if (this.engineConfiguration == null) {
       this.engineConfiguration = Context.getProcessEngineConfiguration();
     }
 
-    if(this.batch.getBatchJobsPerSeed() == 0) {
+    if (this.batch.getBatchJobsPerSeed() == 0) {
       this.batch.setBatchJobsPerSeed(this.engineConfiguration.getBatchJobsPerSeed());
     }
 
-    if(this.batch.getInvocationsPerBatchJob() == 0) {
+    if (this.batch.getInvocationsPerBatchJob() == 0) {
       this.batch.setInvocationsPerBatchJob(this.engineConfiguration.getInvocationsPerBatchJob());
     }
   }

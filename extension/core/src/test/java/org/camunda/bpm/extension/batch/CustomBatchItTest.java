@@ -56,10 +56,10 @@ public class CustomBatchItTest {
 
     //Wait for Jobexecuter
     List<Job> list = new ArrayList<>();
-    for(int i = 0; i<60; i++) {
+    for (int i = 0; i < 60; i++) {
       Thread.sleep(500);
       list = getJobsForDefinition(getGeneratorJobDefinition(batch));
-      if(list.size() > 0) {
+      if (list.size() > 0) {
         break;
       }
     }
