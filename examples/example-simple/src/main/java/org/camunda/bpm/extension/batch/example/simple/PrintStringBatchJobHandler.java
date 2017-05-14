@@ -8,9 +8,9 @@ import org.camunda.bpm.extension.batch.CustomBatchJobHandler;
 
 public class PrintStringBatchJobHandler extends CustomBatchJobHandler<String> {
 
-  public static final String TYPE = "simple-batch-handler";
+  private static final Logger logger = Logger.getLogger(PrintStringBatchJobHandler.class.getSimpleName());
 
-  private final Logger logger = Logger.getLogger(this.getClass().getName());
+  public static final String TYPE = "simple-batch-handler";
 
   @Override
   public void execute(List<String> data, CommandContext commandContext) {
