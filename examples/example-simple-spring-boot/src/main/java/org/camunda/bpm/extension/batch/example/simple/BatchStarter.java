@@ -14,9 +14,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ScheduledBatchStarter {
+public class BatchStarter {
 
-  private final Logger logger = LoggerFactory.getLogger(this.getClass());
+  private static final Logger logger = LoggerFactory.getLogger(BatchStarter.class.getSimpleName());
 
   private PrintStringBatchJobHandler printStringBatchJobHandler;
 
@@ -24,31 +24,37 @@ public class ScheduledBatchStarter {
 
   private SecureRandom random = new SecureRandom();
 
-  private int count = 0;
+  private boolean batchAlreadyStarted = false;
 
   @Autowired
-  private ScheduledBatchStarter(ProcessEngineConfiguration configuration, PrintStringBatchJobHandler jobHandler) {
+  private BatchStarter(ProcessEngineConfiguration configuration, PrintStringBatchJobHandler jobHandler) {
     this.printStringBatchJobHandler = jobHandler;
     this.processEngineConfiguration = configuration;
   }
 
-  @Scheduled(initialDelay = 5000L, fixedDelay = 5000L)
-  public void exitApplicationWhenProcessIsFinished() {
+  @Scheduled(fixedDelay = 1500L)
+  public void createAndStartBatch() {
+    if(batchAlreadyStarted)
+      return;
+
     logger.info("Create new Batch");
-    final List<String> simpleStringList = getSimpleStringList("Batch" + String.valueOf(count) + "_");
+    final List<String> simpleStringList = getSimpleStringList();
 
     CustomBatchBuilder.of(simpleStringList)
       .configuration(processEngineConfiguration)
       .jobHandler(printStringBatchJobHandler)
       .create();
 
-    count++;
+    batchAlreadyStarted = true;
   }
 
-  private List<String> getSimpleStringList(String prefix) {
+  /**
+   * Just some list with random string data
+   */
+  private List<String> getSimpleStringList() {
     final List<String> data = new ArrayList<>();
-    for (int i = 0; i < 10; i++) {
-      data.add(prefix + nextRandomId());
+    for (int i = 0; i < 200; i++) {
+      data.add("SomeRandomBatchData_" + nextRandomId());
     }
     return data;
   }

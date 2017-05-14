@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 
 public class PrintStringBatchJobHandler extends CustomBatchJobHandler<String> {
 
-  public static final String TYPE = "simple-batch-handler";
+  private static final Logger logger = LoggerFactory.getLogger(PrintStringBatchJobHandler.class.getSimpleName());
 
-  Logger logger = LoggerFactory.getLogger(PrintStringBatchJobHandler.class);
+  public static final String TYPE = "simple-batch-handler";
 
   @Override
   public void execute(List<String> data, CommandContext commandContext) {
