@@ -7,11 +7,11 @@ import org.camunda.bpm.extension.batch.CustomBatchJobHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SimpleCustomBatchJobHandler extends CustomBatchJobHandler<String> {
+public class PrintStringBatchJobHandler extends CustomBatchJobHandler<String> {
 
   public static final String TYPE = "simple-batch-handler";
 
-  Logger logger = LoggerFactory.getLogger(SimpleCustomBatchJobHandler.class);
+  Logger logger = LoggerFactory.getLogger(PrintStringBatchJobHandler.class);
 
   @Override
   public void execute(List<String> data, CommandContext commandContext) {

@@ -15,7 +15,7 @@ public class BatchStarter implements Runnable, InitializingBean {
 
   private final Logger logger = Logger.getLogger(this.getClass().getName());
 
-  private SimpleCustomBatchJobHandler simpleCustomBatchJobHandler;
+  private PrintStringBatchJobHandler printStringBatchJobHandler;
 
   private ProcessEngineConfiguration processEngineConfiguration;
 
@@ -24,8 +24,8 @@ public class BatchStarter implements Runnable, InitializingBean {
   private int count = 0;
 
   @Autowired
-  public BatchStarter(ProcessEngineConfiguration configuration, SimpleCustomBatchJobHandler jobHandler) {
-    this.simpleCustomBatchJobHandler = jobHandler;
+  public BatchStarter(ProcessEngineConfiguration configuration, PrintStringBatchJobHandler jobHandler) {
+    this.printStringBatchJobHandler = jobHandler;
     this.processEngineConfiguration = configuration;
   }
 
@@ -42,7 +42,7 @@ public class BatchStarter implements Runnable, InitializingBean {
 
       CustomBatchBuilder.of(simpleStringList)
         .configuration(processEngineConfiguration)
-        .jobHandler(simpleCustomBatchJobHandler)
+        .jobHandler(printStringBatchJobHandler)
         .create();
 
       count++;

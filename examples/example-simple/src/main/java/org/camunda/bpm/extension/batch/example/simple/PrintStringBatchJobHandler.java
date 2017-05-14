@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import org.camunda.bpm.engine.impl.interceptor.CommandContext;
 import org.camunda.bpm.extension.batch.CustomBatchJobHandler;
 
-public class SimpleCustomBatchJobHandler extends CustomBatchJobHandler<String> {
+public class PrintStringBatchJobHandler extends CustomBatchJobHandler<String> {
 
   public static final String TYPE = "simple-batch-handler";
 

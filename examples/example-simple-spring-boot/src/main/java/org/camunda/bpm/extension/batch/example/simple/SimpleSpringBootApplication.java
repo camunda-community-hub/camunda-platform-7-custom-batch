@@ -20,12 +20,12 @@ public class SimpleSpringBootApplication {
   }
 
   @Bean
-  public SimpleCustomBatchJobHandler simpleCustomBatchJobHandler() {
-    return new SimpleCustomBatchJobHandler();
+  public PrintStringBatchJobHandler simpleCustomBatchJobHandler() {
+    return new PrintStringBatchJobHandler();
   }
 
   @Bean
-  public ProcessEnginePlugin customBatchHandlerPlugin(SimpleCustomBatchJobHandler simpleCustomBatchJobHandler) {
-    return new CustomBatchHandlerPlugin(Collections.singletonList(simpleCustomBatchJobHandler));
+  public ProcessEnginePlugin customBatchHandlerPlugin(PrintStringBatchJobHandler printStringBatchJobHandler) {
+    return new CustomBatchHandlerPlugin(Collections.singletonList(printStringBatchJobHandler));
   }
 }

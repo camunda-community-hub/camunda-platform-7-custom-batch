@@ -50,7 +50,7 @@ The name / id of the job handler.
 .Example Implementation:
 ```
 @Component
-public class MyCustomBatchJobHandler extends CustomBatchJobHandler<String> {
+public class PrintStringBatchJobHandler extends CustomBatchJobHandler<String> {
   @Override
   public void execute(List<String> jobData, CommandContext commandContext) {
       logger.info("Work on data: {}", jobData.get(0));
@@ -58,7 +58,7 @@ public class MyCustomBatchJobHandler extends CustomBatchJobHandler<String> {
 
   @Override
   public String getType() {
-      return "simple-batch-handler";
+      return "print-string-batch-handler";
   }
 }
 ```
@@ -79,8 +79,8 @@ This can be done by passing the job handler to the `CustomBatchHandlerPlugin` an
 .With spring boot it would be enough to provide this as a bean:
 ```
 @Bean
-public ProcessEnginePlugin customBatchHandlerPlugin(MyCustomBatchJobHandler myCustomBatchJobHandler) {
-  return new CustomBatchHandlerPlugin(Collections.singletonList(myCustomBatchJobHandler));
+public ProcessEnginePlugin customBatchHandlerPlugin(PrintStringBatchJobHandler printStringBatchJobHandler) {
+  return new CustomBatchHandlerPlugin(Collections.singletonList(printStringBatchJobHandler));
 }
 ```
 
@@ -91,7 +91,7 @@ public ProcessEnginePlugin customBatchHandlerPlugin(MyCustomBatchJobHandler myCu
 
         <bean class="org.camunda.bpm.extension.batch.plugin.CustomBatchHandlerPlugin">
           <constructor-arg>
-            <bean class="org.camunda.bpm.extension.batch.example.simple.SimpleCustomBatchJobHandler"/>
+            <bean class="org.camunda.bpm.extension.batch.example.simple.PrintStringBatchJobHandler"/>
           </constructor-arg>
         </bean>
 
@@ -113,7 +113,7 @@ In the minimum setting (with default batch values and configuration from Context
 
 ```
  final Batch batch = CustomBatchBuilder.of(data) #List of Objects which should be processed
-        .jobHandler(simpleCustomBatchJobHandler)
+        .jobHandler(printStringBatchJobHandler)
         .create();
 ```
 
@@ -136,7 +136,7 @@ The batch could be configured during building it with CustomBatchBuilder:
 ```
  final Batch batch = CustomBatchBuilder.of(data)
         .configuration(configuration)
-        .jobHandler(simpleCustomBatchJobHandler)
+        .jobHandler(printStringBatchJobHandler)
         .jobsPerSeed(10)
         .invocationsPerBatchJob(5)
         .create(configuration.getCommandExecutorTxRequired());
@@ -162,7 +162,7 @@ CustomBatchBuilder.of().configuration(configuration)
 Here you have to provide the batch job handler which should be used by the batch.
 
 ```
-CustomBatchBuilder.of().jobHandler(simpleCustomBatchJobHandler)
+CustomBatchBuilder.of().jobHandler(printStringBatchJobHandler)
 ```
 
 #### Property  `jobsPerSeed`

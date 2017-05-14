@@ -31,7 +31,7 @@
 
         <bean class="org.camunda.bpm.extension.batch.plugin.CustomBatchHandlerPlugin">
           <constructor-arg>
-            <bean class="org.camunda.bpm.extension.batch.example.simple.SimpleCustomBatchJobHandler"/>
+            <bean class="org.camunda.bpm.extension.batch.example.simple.PrintStringBatchJobHandler"/>
           </constructor-arg>
         </bean>
 
@@ -51,7 +51,7 @@
 
   <context:annotation-config/>
 
-  <bean class="org.camunda.bpm.extension.batch.example.simple.SimpleCustomBatchJobHandler"/>
+  <bean class="org.camunda.bpm.extension.batch.example.simple.PrintStringBatchJobHandler"/>
   <bean class="org.camunda.bpm.extension.batch.example.simple.BatchStarter"/>
 
 </beans>

@@ -18,7 +18,7 @@ public class ScheduledBatchStarter {
 
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-  private SimpleCustomBatchJobHandler simpleCustomBatchJobHandler;
+  private PrintStringBatchJobHandler printStringBatchJobHandler;
 
   private ProcessEngineConfiguration processEngineConfiguration;
 
@@ -27,8 +27,8 @@ public class ScheduledBatchStarter {
   private int count = 0;
 
   @Autowired
-  private ScheduledBatchStarter(ProcessEngineConfiguration configuration, SimpleCustomBatchJobHandler jobHandler) {
-    this.simpleCustomBatchJobHandler = jobHandler;
+  private ScheduledBatchStarter(ProcessEngineConfiguration configuration, PrintStringBatchJobHandler jobHandler) {
+    this.printStringBatchJobHandler = jobHandler;
     this.processEngineConfiguration = configuration;
   }
 
@@ -39,7 +39,7 @@ public class ScheduledBatchStarter {
 
     CustomBatchBuilder.of(simpleStringList)
       .configuration(processEngineConfiguration)
-      .jobHandler(simpleCustomBatchJobHandler)
+      .jobHandler(printStringBatchJobHandler)
       .create();
 
     count++;
