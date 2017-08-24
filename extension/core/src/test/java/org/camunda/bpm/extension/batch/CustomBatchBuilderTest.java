@@ -1,18 +1,5 @@
 package org.camunda.bpm.extension.batch;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.camunda.bpm.engine.test.assertions.ProcessEngineAssertions.processEngine;
-import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.managementService;
-import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.executeJob;
-import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.getGeneratorJobDefinition;
-import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.getJobsForDefinition;
-import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.getSeedJob;
-import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.getSeedJobDefinition;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.camunda.bpm.engine.batch.Batch;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.management.JobDefinition;
@@ -23,6 +10,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.camunda.bpm.engine.test.assertions.ProcessEngineAssertions.processEngine;
+import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.managementService;
+import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.executeJob;
+import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.getGeneratorJobDefinition;
+import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.getJobsForDefinition;
+import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.getSeedJob;
+import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.getSeedJobDefinition;
 
 public class CustomBatchBuilderTest {
 
@@ -97,13 +97,14 @@ public class CustomBatchBuilderTest {
       .configuration(configuration)
       .jobHandler(testCustomBatchJobHandler)
       .jobsPerSeed(4)
-      .invocationsPerBatchJob(2)
+      .invocationsPerBatchJob(3)
       .create(configuration.getCommandExecutorTxRequired());
 
     executeJob(getSeedJob(batch).getId());
 
     final List<Job> list = getJobsForDefinition(getGeneratorJobDefinition(batch));
     assertThat(list.size()).isEqualTo(2);
+    assertThat(batch.getTotalJobs()).isEqualTo(2);
   }
 
   private Batch getDefaultBatch(List<String> data) {
