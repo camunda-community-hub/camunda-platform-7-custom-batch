@@ -13,11 +13,6 @@
   <artifactId>camunda-bpm-custom-batch-example-root</artifactId>
   <packaging>pom</packaging>
 
-  <properties>
-    <camunda-spring-boot.version>2.2.0</camunda-spring-boot.version>
-    <spring-boot.version>1.5.8.RELEASE</spring-boot.version>
-  </properties>
-
   <modules>
     <module>example-simple</module>
     <module>example-simple-spring-boot</module>
