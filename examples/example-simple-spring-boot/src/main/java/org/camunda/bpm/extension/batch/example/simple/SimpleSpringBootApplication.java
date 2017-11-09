@@ -21,7 +21,7 @@ import java.util.stream.IntStream;
 import static java.util.stream.Collectors.toList;
 
 @SpringBootApplication
-@EnableProcessApplication("mySimpleApplication")
+@EnableProcessApplication
 public class SimpleSpringBootApplication {
 
   private static final Logger logger = LoggerFactory.getLogger(SimpleSpringBootApplication.class);

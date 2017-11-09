@@ -1,4 +1,5 @@
 spring.application.name: simpleApplication
+server.port: 10100
 spring:
   datasource:
     url: jdbc:h2:mem:example-simple;MODE=Oracle;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
@@ -15,6 +16,7 @@ camunda:
     metrics:
       enabled: false
       db-reporter-activate: false
+
 
 
 #camunda.bpm.auto-deployment-enabled: false

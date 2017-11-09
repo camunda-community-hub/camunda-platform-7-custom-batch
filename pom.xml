@@ -37,6 +37,10 @@
     <commons-lang3.version>3.5</commons-lang3.version>
 
     <surefire.runOrder>reversealphabetical</surefire.runOrder>
+
+
+    <camunda-spring-boot.version>2.2.0</camunda-spring-boot.version>
+    <spring-boot.version>1.5.8.RELEASE</spring-boot.version>
   </properties>
 
   <dependencyManagement>
@@ -47,6 +51,12 @@
         <version>${camunda.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <artifactId>camunda-bpm-custom-batch-core</artifactId>
+        <groupId>${extension.groupId}</groupId>
+        <version>${project.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
