@@ -46,7 +46,7 @@ public abstract class FailsafeCustomBatchJobHandler<T> extends CustomBatchJobHan
    * @param <T> wrapped type
    * @return proxy
    */
-  private <T> T requireNewTransaction(T target) {
+  protected  <T> T requireNewTransaction(T target) {
     final TransactionProxyFactoryBean proxy = new TransactionProxyFactoryBean();
 
     // Inject transaction manager here
