@@ -1,7 +1,5 @@
 package org.camunda.bpm.extension.batch;
 
-import java.util.List;
-
 import org.camunda.bpm.engine.ProcessEngineConfiguration;
 import org.camunda.bpm.engine.batch.Batch;
 import org.camunda.bpm.engine.impl.batch.BatchEntity;
@@ -10,6 +8,8 @@ import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.interceptor.CommandExecutor;
 import org.camunda.bpm.extension.batch.core.CustomBatchConfiguration;
+
+import java.util.List;
 
 public class CustomBatchBuilder<T> {
 
@@ -126,7 +126,7 @@ public class CustomBatchBuilder<T> {
   }
 
   private int calculateTotalJobs() {
-    return Integer.divideUnsigned(this.batchData.size(), this.batch.getInvocationsPerBatchJob());
+    return Double.valueOf(Math.ceil((double) this.batchData.size() / this.batch.getInvocationsPerBatchJob())).intValue();
   }
 
   private void initDefaults() {
