@@ -16,7 +16,7 @@ The extension will be published on maven central, so if you are using maven, jus
 <dependency>
   <groupId>org.camunda.bpm.extension.batch</groupId>
   <artifactId>camunda-bpm-custom-batch-core</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
@@ -42,7 +42,7 @@ Next you have to notify the engine about this job handler, e.g. with spring-boot
 ```
 @Bean
 public ProcessEnginePlugin customBatchHandlerPlugin(PrintStringBatchJobHandler printStringBatchJobHandler) {
-  return new PrintStringBatchJobHandler(Collections.singletonList(printStringBatchJobHandler));
+  return CustomBatchHandlerPlugin.of(printStringBatchJobHandler);
 }
 ```
 
