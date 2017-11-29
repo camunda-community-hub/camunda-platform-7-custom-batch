@@ -1,8 +1,15 @@
 # camunda-bpm-custom-batch
 
-|====
-a| image::https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="./LICENSE"]
-|====
+[cols="a,a,a"]
+,====
+// mvn travis
+image::https://travis-ci.org/camunda/camunda-bpm-custom-batch.svg?branch=master[link="https://travis-ci.org/camunda/camunda-bpm-custom-batch"]
+// license
+image::https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="./LICENSE"]
+// mvn central
+image::https://maven-badges.herokuapp.com/maven-central/org.camunda.bpm.extension.batch/camunda-bpm-custom-batch-core/badge.svg[link="https://maven-badges.herokuapp.com/maven-central/org.camunda.bpm.extension.batch/camunda-bpm-custom-batch-core"]
+,====
+
 
 The goal of this camunda extension is to provide an simple way of using the camunda batch functionality.
 Camunda Batch could be used to split a huge workload into small asynchronous jobs.
