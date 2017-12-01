@@ -20,21 +20,14 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-
-      <dependency>
-        <groupId>org.camunda.bpm.extension.springboot</groupId>
-        <artifactId>camunda-bpm-spring-boot-starter-bom</artifactId>
-        <version>${camunda-spring-boot.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
     </dependencies>
   </dependencyManagement>
 
   <dependencies>
     <dependency>
-      <groupId>org.camunda.bpm.extension.springboot</groupId>
+      <groupId>org.camunda.bpm.springboot</groupId>
       <artifactId>camunda-bpm-spring-boot-starter</artifactId>
+      <version>${camunda-spring-boot.version}</version>
     </dependency>
 
     <dependency>

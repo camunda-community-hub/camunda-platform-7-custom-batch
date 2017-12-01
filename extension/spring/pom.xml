@@ -45,6 +45,7 @@
       <artifactId>spring-aop</artifactId>
       <scope>provided</scope>
     </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -52,10 +53,9 @@
     </dependency>
 
     <dependency>
-      <groupId>org.camunda.bpm.extension.springboot</groupId>
+      <groupId>org.camunda.bpm.springboot</groupId>
       <artifactId>camunda-bpm-spring-boot-starter</artifactId>
       <version>${camunda-spring-boot.version}</version>
-      <scope>test</scope>
     </dependency>
 
     <dependency>

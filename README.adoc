@@ -15,6 +15,12 @@ The goal of this camunda extension is to provide an simple way of using the camu
 Camunda Batch could be used to split a huge workload into small asynchronous jobs.
 With this extension, we want to open the camunda batch functionality to everyone.
 
+## Why should I use this extension
+
+Camunda batch is really cool for offloading huge workload into small asynchronous pieces of work. E.g.:
+
+* Unclaiming / Updating a hugh list of camunda tasks
+
 ## Get started
 
 The extension will be published on maven central, so if you are using maven, just add the dependency:
@@ -80,7 +86,7 @@ CustomBatchBuilder.of(listOfStringData)
 
 * _https://forum.camunda.org/c/community-extensions/custom-batch[Discussion Forum]_
 
-* _https://docs.camunda.org/manual/7.6/user-guide/process-engine/batch/[Camunda Batch Docs]_
+* _https://docs.camunda.org/manual/7.8/user-guide/process-engine/batch/[Camunda Batch Docs]_
 
 * link:./CONTRIBUTE.md[Contributing] - check this if you want to contribute
 
