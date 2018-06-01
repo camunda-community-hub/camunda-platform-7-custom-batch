@@ -10,6 +10,10 @@
   <groupId>${extension.groupId}</groupId>
   <artifactId>camunda-bpm-custom-batch-spring</artifactId>
 
+  <properties>
+    <awaitility.version>3.0.0</awaitility.version>
+  </properties>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -26,6 +30,12 @@
     <dependency>
       <artifactId>camunda-bpm-custom-batch-core</artifactId>
       <groupId>${extension.groupId}</groupId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.camunda.bpm.springboot</groupId>
+      <artifactId>camunda-bpm-spring-boot-starter</artifactId>
+      <version>${camunda-spring-boot.version}</version>
     </dependency>
 
     <dependency>
@@ -46,6 +56,7 @@
       <scope>provided</scope>
     </dependency>
 
+    <!-- testing -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -53,15 +64,9 @@
     </dependency>
 
     <dependency>
-      <groupId>org.camunda.bpm.springboot</groupId>
-      <artifactId>camunda-bpm-spring-boot-starter</artifactId>
-      <version>${camunda-spring-boot.version}</version>
-    </dependency>
-
-    <dependency>
       <groupId>org.awaitility</groupId>
       <artifactId>awaitility</artifactId>
-      <version>3.0.0</version>
+      <version>${awaitility.version}</version>
       <scope>test</scope>
     </dependency>
 

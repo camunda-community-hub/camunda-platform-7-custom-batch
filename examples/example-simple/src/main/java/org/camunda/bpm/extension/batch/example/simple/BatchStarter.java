@@ -28,7 +28,7 @@ public class BatchStarter implements InitializingBean {
   }
 
   @Override
-  public void afterPropertiesSet() throws Exception {
+  public void afterPropertiesSet() {
     createAndStartBatch();
   }
 

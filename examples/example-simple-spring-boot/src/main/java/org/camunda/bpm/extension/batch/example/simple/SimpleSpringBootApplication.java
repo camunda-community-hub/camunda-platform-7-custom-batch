@@ -1,5 +1,12 @@
 package org.camunda.bpm.extension.batch.example.simple;
 
+import static java.util.stream.Collectors.toList;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.IntStream;
+
 import org.camunda.bpm.engine.impl.cfg.ProcessEnginePlugin;
 import org.camunda.bpm.extension.batch.CustomBatchBuilder;
 import org.camunda.bpm.extension.batch.plugin.CustomBatchHandlerPlugin;
@@ -13,19 +20,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.IntStream;
-
-import static java.util.stream.Collectors.toList;
-
 @SpringBootApplication
 @EnableProcessApplication
 public class SimpleSpringBootApplication {
 
   private static final Logger logger = LoggerFactory.getLogger(SimpleSpringBootApplication.class);
-  public static void main(final String... args) throws Exception {
+
+  public static void main(final String... args) {
     SpringApplication.run(SimpleSpringBootApplication.class, args);
   }
 

@@ -86,7 +86,7 @@ CustomBatchBuilder.of(listOfStringData)
 
 * _https://forum.camunda.org/c/community-extensions/custom-batch[Discussion Forum]_
 
-* _https://docs.camunda.org/manual/7.8/user-guide/process-engine/batch/[Camunda Batch Docs]_
+* _https://docs.camunda.org/manual/7.9/user-guide/process-engine/batch/[Camunda Batch Docs]_
 
 * link:./CONTRIBUTE.md[Contributing] - check this if you want to contribute
 
