@@ -24,3 +24,5 @@ _tmp/
 # No process pngs
 # -------------------------
 extension/**.png
+# Camunda
+camunda-license.txt
