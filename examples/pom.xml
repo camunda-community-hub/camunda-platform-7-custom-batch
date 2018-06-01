@@ -14,5 +14,6 @@
   <modules>
     <module>example-simple</module>
     <module>example-simple-spring-boot</module>
+    <module>example-simple-spring-boot-webapp-ee</module>
   </modules>
 </project>

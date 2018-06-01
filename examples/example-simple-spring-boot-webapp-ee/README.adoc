@@ -1,0 +1,13 @@
+# Simple example with spring boot and camunda cockpit
+
+Simple example which uses an embedded engine.
+On startup a batch will be created which works on a list of random string data.
+
+Start with mvn spring-boot:run.
+
+Cockpit is running on http://localhost:10100/app/cockpit/default/
+
+To use Batch functions, camunda ee is required.
+To enable ee, put your licence key into "resources/camunda-license.txt".
+
+See also license-file property in https://docs.camunda.org/manual/develop/user-guide/spring-boot-integration/configuration/#camunda-engine-properties
