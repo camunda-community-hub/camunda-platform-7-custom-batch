@@ -21,6 +21,7 @@ import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.manageme
 import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.executeJob;
 import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.getGeneratorJobDefinition;
 import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.getJobsForDefinition;
+import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.getMonitorJob;
 import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.getSeedJob;
 import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.getSeedJobDefinition;
 
@@ -89,6 +90,34 @@ public class CustomBatchBuilderTest {
 
     Job seedJob = getSeedJob(batch);
     assertThat(seedJob).isNotNull();
+  }
+
+  @Test
+  public void priority_is_set_on_jobs() {
+    final long jobDefinitionPriority = 3L;
+    batch = CustomBatchBuilder.of(data)
+      .configuration(configuration)
+      .jobHandler(testCustomBatchJobHandler)
+      .jobPriority(jobDefinitionPriority)
+      .create(configuration.getCommandExecutorTxRequired());
+    final JobDefinition generatorJobDefinition = getGeneratorJobDefinition(batch);
+
+    assertThat(generatorJobDefinition.getOverridingJobPriority()).isEqualTo(jobDefinitionPriority);
+
+    final Job seedJob = getSeedJob(batch);
+    assertThat(seedJob.getPriority()).isEqualTo(jobDefinitionPriority);
+    executeJob(seedJob.getId());
+
+    final List<Job> jobs = getJobsForDefinition(generatorJobDefinition);
+    assertThat(jobs).isNotEmpty();
+    jobs.stream().map(Job::getPriority).forEach(priority -> assertThat(priority).isEqualTo(jobDefinitionPriority));
+
+    assertThat(getSeedJob(batch)).isNull();
+
+    final Job monitorJob = getMonitorJob(batch);
+    assertThat(monitorJob.getPriority()).isEqualTo(jobDefinitionPriority);
+
+    executeJob(monitorJob.getId());
   }
 
   @Test

@@ -5,6 +5,7 @@ import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.manageme
 import java.util.List;
 
 import org.camunda.bpm.engine.batch.Batch;
+import org.camunda.bpm.engine.impl.batch.BatchMonitorJobHandler;
 import org.camunda.bpm.engine.impl.batch.BatchSeedJobHandler;
 import org.camunda.bpm.engine.management.JobDefinition;
 import org.camunda.bpm.engine.runtime.Job;
@@ -18,8 +19,19 @@ public class CustomBatchTestHelper {
       .singleResult();
   }
 
+  public static JobDefinition getMonitorJobDefinition(Batch batch) {
+    return managementService().createJobDefinitionQuery()
+      .jobDefinitionId(batch.getMonitorJobDefinitionId())
+      .jobType(BatchMonitorJobHandler.TYPE)
+      .singleResult();
+  }
+
   public static Job getSeedJob(Batch batch) {
     return getJobForDefinition(getSeedJobDefinition(batch));
+  }
+
+  public static Job getMonitorJob(Batch batch) {
+    return getJobForDefinition(getMonitorJobDefinition(batch));
   }
 
   public static Job getJobForDefinition(JobDefinition jobDefinition) {
