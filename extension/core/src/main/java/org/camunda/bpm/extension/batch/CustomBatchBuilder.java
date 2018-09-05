@@ -7,9 +7,12 @@ import org.camunda.bpm.engine.impl.batch.BatchJobHandler;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.interceptor.CommandExecutor;
+import org.camunda.bpm.engine.impl.persistence.entity.JobDefinitionEntity;
 import org.camunda.bpm.extension.batch.core.CustomBatchConfiguration;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 public class CustomBatchBuilder<T> {
 
@@ -20,6 +23,8 @@ public class CustomBatchBuilder<T> {
   private BatchJobHandler<CustomBatchConfiguration> batchJobHandler;
 
   private List<T> batchData;
+
+  private Optional<Long> jobPriority = Optional.empty();
 
   protected CustomBatchBuilder() {}
 
@@ -97,6 +102,19 @@ public class CustomBatchBuilder<T> {
     return this;
   }
 
+  /**
+   * Define a jobPriority which is used by job executor when acquiring jobs.
+   * <p>
+   * This is only considered if jobExecutorAcquireByPriority is active.
+   *
+   * @param jobPriority ... jobPriority for generated batch jobs
+   * @return CustomBatchBuilder
+   */
+  public CustomBatchBuilder<T> jobPriority(Long jobPriority) {
+    this.jobPriority = Optional.ofNullable(jobPriority);
+    return this;
+  }
+
   public Batch create(CommandExecutor executor) {
     initDefaults();
 
@@ -111,10 +129,13 @@ public class CustomBatchBuilder<T> {
 
       commandContext.getBatchManager().insert(this.batch);
 
-      this.batch.createSeedJobDefinition();
-      this.batch.createBatchJobDefinition();
-      this.batch.createMonitorJobDefinition();
+      final JobDefinitionEntity seedJobDefinition = this.batch.createSeedJobDefinition();
+      final JobDefinitionEntity batchJobDefinition = this.batch.createBatchJobDefinition();
+      final JobDefinitionEntity monitorJobDefinition = this.batch.createMonitorJobDefinition();
       this.batch.fireHistoricStartEvent();
+      this.jobPriority.ifPresent(((Consumer<Long>) batchJobDefinition::setJobPriority)
+        .andThen(seedJobDefinition::setJobPriority)
+        .andThen(monitorJobDefinition::setJobPriority));
       this.batch.createSeedJob();
 
       return this.batch;

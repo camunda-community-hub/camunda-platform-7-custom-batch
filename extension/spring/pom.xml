@@ -23,6 +23,12 @@
         <scope>import</scope>
         <type>pom</type>
       </dependency>
+
+      <dependency>
+        <groupId>org.camunda.bpm.springboot</groupId>
+        <artifactId>camunda-bpm-spring-boot-starter</artifactId>
+        <version>${camunda-spring-boot.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -35,7 +41,7 @@
     <dependency>
       <groupId>org.camunda.bpm.springboot</groupId>
       <artifactId>camunda-bpm-spring-boot-starter</artifactId>
-      <version>${camunda-spring-boot.version}</version>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
