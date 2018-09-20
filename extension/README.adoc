@@ -139,6 +139,7 @@ The batch could be configured during building it with CustomBatchBuilder:
         .jobHandler(printStringBatchJobHandler)
         .jobsPerSeed(10)
         .invocationsPerBatchJob(5)
+        .jobPriority(0L)
         .create(configuration.getCommandExecutorTxRequired());
 ```
 
@@ -182,6 +183,15 @@ Default is 100
 How many data should be passed to the job handler.
 
 E.g., for the process instance migration batch this specifies the number of process instances which are migrated per batch execution job.
+
+
+### Property `jobPriority`
+
+Priority of the seed job + monitoring job + batch jobs.
+
+Note: The batch `jobPriority` is only considered when using Job Executor with the corresponding Acquisition Strategy `jobExecutorAcquireByPriority`. (see _https://docs.camunda.org/manual/latest/user-guide/process-engine/the-job-executor/#job-acquisition[camunda documentation]_) 
+
+Default is 0l
 
 ```
 CustomBatchBuilder.of().invocationsPerBatchJob(5)
