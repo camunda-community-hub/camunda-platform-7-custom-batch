@@ -25,12 +25,20 @@ Camunda batch is really cool for offloading huge workload into small asynchronou
 
 The extension will be published on maven central, so if you are using maven, just add the dependency:
 
+Maven Users:
+
 ```
 <dependency>
   <groupId>org.camunda.bpm.extension.batch</groupId>
   <artifactId>camunda-bpm-custom-batch-core</artifactId>
   <version>1.2.0</version>
 </dependency>
+```
+
+Gradle Users:
+
+```
+compile("org.camunda.bpm.extension.batch:camunda-bpm-custom-batch-core:1.2.0")
 ```
 
 First you have to define an own job handler for working on the single batch data:
