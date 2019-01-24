@@ -31,12 +31,12 @@
     <extension.groupId>org.camunda.bpm.extension.batch</extension.groupId>
     <example.groupId>org.camunda.bpm.extension.batch.example</example.groupId>
 
-    <camunda.version>7.9.0</camunda.version>
+    <camunda.version>7.10.0</camunda.version>
     <slf4j.version>1.7.24</slf4j.version>
     <commons-lang3.version>3.5</commons-lang3.version>
 
-    <camunda-spring-boot.version>3.0.0</camunda-spring-boot.version>
-    <spring-boot.version>2.0.2.RELEASE</spring-boot.version>
+    <camunda-spring-boot.version>3.2.0</camunda-spring-boot.version>
+    <spring-boot.version>2.1.1.RELEASE</spring-boot.version>
 
     <surefire.runOrder>reversealphabetical</surefire.runOrder>
   </properties>
