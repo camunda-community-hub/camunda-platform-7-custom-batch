@@ -1,43 +1,41 @@
 package org.camunda.bpm.extension.batch.core;
 
-import java.util.List;
-
-import org.camunda.bpm.engine.impl.batch.BatchEntity;
-import org.camunda.bpm.engine.impl.batch.BatchJobConfiguration;
-import org.camunda.bpm.engine.impl.batch.BatchJobContext;
-import org.camunda.bpm.engine.impl.batch.BatchJobDeclaration;
-import org.camunda.bpm.engine.impl.batch.BatchJobHandler;
+import org.camunda.bpm.engine.impl.batch.*;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.jobexecutor.JobDeclaration;
+import org.camunda.bpm.engine.impl.json.JsonObjectConverter;
 import org.camunda.bpm.engine.impl.persistence.entity.ByteArrayEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.JobEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.JobManager;
 import org.camunda.bpm.engine.impl.persistence.entity.MessageEntity;
 
+import java.util.List;
+
 public abstract class CustomBatchCreateJobsHandler<T> implements BatchJobHandler<CustomBatchConfiguration> {
 
-  public final BatchJobDeclaration JOB_DECLARATION = new BatchJobDeclaration(getType());
+  private final BatchJobDeclaration JOB_DECLARATION = new BatchJobDeclaration(getType());
 
   @Override
-  public boolean createJobs(BatchEntity batch) {
+  public boolean createJobs(final BatchEntity batch) {
     final JobManager jobManager = Context.getCommandContext().getJobManager();
 
     final CustomBatchConfiguration<T> configuration = readConfiguration(batch.getConfigurationBytes());
 
-    List<T> data = configuration.getData();
+    final List<T> data = configuration.getData();
     // view of process instances to process
-    int batchJobsPerSeed = batch.getBatchJobsPerSeed();
-    int invocationsPerBatchJob = batch.getInvocationsPerBatchJob();
-    int numberOfItemsToProcess = Math.min(invocationsPerBatchJob * batchJobsPerSeed, data.size());
+    final int batchJobsPerSeed = batch.getBatchJobsPerSeed();
+    final int invocationsPerBatchJob = batch.getInvocationsPerBatchJob();
+    final int numberOfItemsToProcess = Math.min(invocationsPerBatchJob * batchJobsPerSeed, data.size());
     // view of process instances to process
-    List<T> dataSubSet = data.subList(0, numberOfItemsToProcess);
+    final List<T> dataSubSet = data.subList(0, numberOfItemsToProcess);
 
     int createdJobs = 0;
     while (!dataSubSet.isEmpty()) {
-      int lastIdIndex = Math.min(batch.getInvocationsPerBatchJob(), dataSubSet.size());
-      List<T> dataForJob = dataSubSet.subList(0, lastIdIndex);
+      final int lastIdIndex = Math.min(batch.getInvocationsPerBatchJob(), dataSubSet.size());
+      final List<T> dataForJob = dataSubSet.subList(0, lastIdIndex);
 
       final JobEntity job = createBatchJob(batch, dataForJob);
+      job.setExclusive(configuration.isExclusive());
       jobManager.insertAndHintJobExecutor(job);
 
       dataForJob.clear();
@@ -54,35 +52,43 @@ public abstract class CustomBatchCreateJobsHandler<T> implements BatchJobHandler
   }
 
   @Override
-  public JobDeclaration<?, MessageEntity> getJobDeclaration() { return JOB_DECLARATION; }
+  public JobDeclaration<BatchJobContext, MessageEntity> getJobDeclaration() { return JOB_DECLARATION; }
 
   @Override
-  public void deleteJobs(BatchEntity batch) {
+  public void deleteJobs(final BatchEntity batch) {
     Context.getCommandContext().getJobManager()
       .findJobsByJobDefinitionId(batch.getBatchJobDefinitionId())
       .forEach(JobEntity::delete);
   }
 
-  private JobEntity createBatchJob(BatchEntity batch, List<T> dataForJob) {
+  private JobEntity createBatchJob(final BatchEntity batch, final List<T> dataForJob) {
     final CustomBatchConfiguration<T> jobConfiguration = new CustomBatchConfiguration<>(dataForJob);
-    final ByteArrayEntity configurationEntity = CustomBatchConfigurationHelper.of().saveConfiguration(jobConfiguration);
+    final ByteArrayEntity configurationEntity = configurationHelper().saveConfiguration(jobConfiguration);
 
     final BatchJobContext creationContext = new BatchJobContext(batch, configurationEntity);
-    return JOB_DECLARATION.createJobInstance(creationContext);
+    return getJobDeclaration().createJobInstance(creationContext);
   }
 
   @Override
-  public BatchJobConfiguration newConfiguration(String canonicalString) {
+  public BatchJobConfiguration newConfiguration(final String canonicalString) {
     return new BatchJobConfiguration(canonicalString);
   }
 
   @Override
-  public byte[] writeConfiguration(CustomBatchConfiguration configuration) {
-    return CustomBatchConfigurationHelper.writeConfiguration(configuration);
+  public byte[] writeConfiguration(final CustomBatchConfiguration configuration) {
+    return configurationHelper().writeConfiguration(configuration);
   }
 
   @Override
-  public CustomBatchConfiguration<T> readConfiguration(byte[] serializedConfiguration) {
-    return CustomBatchConfigurationHelper.<T>of().readConfiguration(serializedConfiguration);
+  public CustomBatchConfiguration<T> readConfiguration(final byte[] serializedConfiguration) {
+    return configurationHelper().readConfiguration(serializedConfiguration);
+  }
+
+  public CustomBatchConfigurationHelper<T> configurationHelper() {
+    return CustomBatchConfigurationJsonHelper.of(jsonObjectConverter());
+  }
+
+  public JsonObjectConverter<CustomBatchConfiguration<T>> jsonObjectConverter() {
+    return CustomBatchConfigurationJsonConverter.of();
   }
 }

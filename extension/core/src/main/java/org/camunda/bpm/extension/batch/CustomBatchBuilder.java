@@ -26,9 +26,11 @@ public class CustomBatchBuilder<T> {
 
   private Optional<Long> jobPriority = Optional.empty();
 
+  private boolean exclusive = true;
+
   protected CustomBatchBuilder() {}
 
-  protected CustomBatchBuilder(List<T> data) {
+  protected CustomBatchBuilder(final List<T> data) {
     this.batchData = data;
   }
 
@@ -36,7 +38,7 @@ public class CustomBatchBuilder<T> {
     return new CustomBatchBuilder<>();
   }
 
-  public static <T> CustomBatchBuilder<T> of(List<T> data) {
+  public static <T> CustomBatchBuilder<T> of(final List<T> data) {
     return new CustomBatchBuilder<>(data);
   }
 
@@ -46,7 +48,7 @@ public class CustomBatchBuilder<T> {
    * @param configuration ... The engine configuration
    * @return CustomBatchBuilder
    */
-  public CustomBatchBuilder<T> configuration(ProcessEngineConfiguration configuration) {
+  public CustomBatchBuilder<T> configuration(final ProcessEngineConfiguration configuration) {
     this.engineConfiguration = (ProcessEngineConfigurationImpl) configuration;
     return this;
   }
@@ -58,7 +60,7 @@ public class CustomBatchBuilder<T> {
    * @param jobHandler ... Batch job handler which should be used
    * @return CustomBatchBuilder
    */
-  public CustomBatchBuilder<T> jobHandler(BatchJobHandler<CustomBatchConfiguration> jobHandler) {
+  public CustomBatchBuilder<T> jobHandler(final BatchJobHandler<CustomBatchConfiguration> jobHandler) {
     this.batchJobHandler = jobHandler;
     this.batch.setType(jobHandler.getType());
     return this;
@@ -72,7 +74,7 @@ public class CustomBatchBuilder<T> {
    * @param jobsPerSeed ... The number of batch execution jobs created per seed job invocation
    * @return CustomBatchBuilder
    */
-  public CustomBatchBuilder<T> jobsPerSeed(int jobsPerSeed) {
+  public CustomBatchBuilder<T> jobsPerSeed(final int jobsPerSeed) {
     this.batch.setBatchJobsPerSeed(jobsPerSeed);
     return this;
   }
@@ -86,7 +88,7 @@ public class CustomBatchBuilder<T> {
    * @param invocationsPerBatchJob ... The amount of data which should pe processed per batch job
    * @return CustomBatchBuilder
    */
-  public CustomBatchBuilder<T> invocationsPerBatchJob(int invocationsPerBatchJob) {
+  public CustomBatchBuilder<T> invocationsPerBatchJob(final int invocationsPerBatchJob) {
     this.batch.setInvocationsPerBatchJob(invocationsPerBatchJob);
     return this;
   }
@@ -97,7 +99,7 @@ public class CustomBatchBuilder<T> {
    * @param data ... Data for Batch
    * @return CustomBatchBuilder
    */
-  public CustomBatchBuilder<T> batchData(List<T> data) {
+  public CustomBatchBuilder<T> batchData(final List<T> data) {
     this.batchData = data;
     return this;
   }
@@ -110,19 +112,25 @@ public class CustomBatchBuilder<T> {
    * @param jobPriority ... jobPriority for generated batch jobs
    * @return CustomBatchBuilder
    */
-  public CustomBatchBuilder<T> jobPriority(Long jobPriority) {
+  public CustomBatchBuilder<T> jobPriority(final Long jobPriority) {
     this.jobPriority = Optional.ofNullable(jobPriority);
+    return this;
+  }
+
+  public CustomBatchBuilder<T> exclusive(final boolean exclusive) {
+    this.exclusive = exclusive;
     return this;
   }
 
   public Batch create(CommandExecutor executor) {
     initDefaults();
 
-    if (executor == null)
+    if (executor == null) {
       executor = this.engineConfiguration.getCommandExecutorTxRequired();
+    }
 
     return executor.execute((commandContext) -> {
-      final CustomBatchConfiguration<T> configuration = new CustomBatchConfiguration<>(this.batchData);
+      final CustomBatchConfiguration<T> configuration = new CustomBatchConfiguration<>(this.batchData, this.exclusive);
 
       this.batch.setConfigurationBytes(this.batchJobHandler.writeConfiguration(configuration));
       this.batch.setTotalJobs(calculateTotalJobs());

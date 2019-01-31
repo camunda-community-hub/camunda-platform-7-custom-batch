@@ -5,11 +5,13 @@ import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.management.JobDefinition;
 import org.camunda.bpm.engine.runtime.Job;
 import org.camunda.bpm.engine.test.ProcessEngineRule;
+import org.camunda.bpm.extension.batch.core.CustomBatchConfiguration;
 import org.camunda.bpm.extension.batch.testhelper.TestCustomBatchJobHandler;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,12 +20,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.camunda.bpm.engine.test.assertions.ProcessEngineAssertions.processEngine;
 import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.managementService;
-import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.executeJob;
-import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.getGeneratorJobDefinition;
-import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.getJobsForDefinition;
-import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.getMonitorJob;
-import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.getSeedJob;
-import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.getSeedJobDefinition;
+import static org.camunda.bpm.extension.batch.testhelper.CustomBatchTestHelper.*;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
 public class CustomBatchBuilderTest {
 
@@ -32,26 +31,26 @@ public class CustomBatchBuilderTest {
 
   private Batch batch;
 
-  private TestCustomBatchJobHandler testCustomBatchJobHandler = new TestCustomBatchJobHandler();
+  private final TestCustomBatchJobHandler testCustomBatchJobHandler = spy(TestCustomBatchJobHandler.class);
 
-  private ProcessEngineConfigurationImpl configuration;
+  private ProcessEngineConfigurationImpl engineConfiguration;
 
-  private List<String> data = Arrays.asList("Test", "Test2", "Test3", "Test4");
+  private final List<String> data = Arrays.asList("Test", "Test2", "Test3", "Test4");
 
   @Before
-  public void setUp() throws Exception {
-    configuration = (ProcessEngineConfigurationImpl) processEngine().getProcessEngineConfiguration();
-    configuration.setCustomBatchJobHandlers(new ArrayList<>());
-    configuration.getCustomBatchJobHandlers().add(testCustomBatchJobHandler);
+  public void setUp() {
+    engineConfiguration = (ProcessEngineConfigurationImpl) processEngine().getProcessEngineConfiguration();
+    engineConfiguration.setCustomBatchJobHandlers(new ArrayList<>());
+    engineConfiguration.getCustomBatchJobHandlers().add(testCustomBatchJobHandler);
   }
 
   @After
-  public void tearDown() throws Exception {
+  public void tearDown() {
     managementService().deleteBatch(batch.getId(), true);
   }
 
   @Test
-  public void create_batch_with_defaults() throws Exception {
+  public void create_batch_with_defaults() {
     batch = getDefaultBatch(data);
 
     assertThat(batch).isNotNull();
@@ -64,13 +63,13 @@ public class CustomBatchBuilderTest {
   }
 
   @Test
-  public void create_batch_with_own_config() throws Exception {
+  public void create_batch_with_own_config() {
     batch = CustomBatchBuilder.of(data)
-      .configuration(configuration)
+      .configuration(engineConfiguration)
       .jobHandler(testCustomBatchJobHandler)
       .jobsPerSeed(10)
       .invocationsPerBatchJob(5)
-      .create(configuration.getCommandExecutorTxRequired());
+      .create(engineConfiguration.getCommandExecutorTxRequired());
 
     assertThat(batch).isNotNull();
     assertThat(batch.getType()).isEqualTo("test-type");
@@ -85,10 +84,10 @@ public class CustomBatchBuilderTest {
   public void seed_job_is_created() {
     batch = getDefaultBatch(data);
 
-    JobDefinition seedJobDefinition = getSeedJobDefinition(batch);
+    final JobDefinition seedJobDefinition = getSeedJobDefinition(batch);
     assertThat(seedJobDefinition).isNotNull();
 
-    Job seedJob = getSeedJob(batch);
+    final Job seedJob = getSeedJob(batch);
     assertThat(seedJob).isNotNull();
   }
 
@@ -96,10 +95,10 @@ public class CustomBatchBuilderTest {
   public void priority_is_set_on_jobs() {
     final long jobDefinitionPriority = 3L;
     batch = CustomBatchBuilder.of(data)
-      .configuration(configuration)
+      .configuration(engineConfiguration)
       .jobHandler(testCustomBatchJobHandler)
       .jobPriority(jobDefinitionPriority)
-      .create(configuration.getCommandExecutorTxRequired());
+      .create(engineConfiguration.getCommandExecutorTxRequired());
     final JobDefinition generatorJobDefinition = getGeneratorJobDefinition(batch);
 
     assertThat(generatorJobDefinition.getOverridingJobPriority()).isEqualTo(jobDefinitionPriority);
@@ -121,13 +120,41 @@ public class CustomBatchBuilderTest {
   }
 
   @Test
+  public void exclusive_false_is_set_to_batch_configuration() {
+    batch = CustomBatchBuilder.of(data)
+      .configuration(engineConfiguration)
+      .jobHandler(testCustomBatchJobHandler)
+      .exclusive(false)
+      .create(engineConfiguration.getCommandExecutorTxRequired());
+
+    final ArgumentCaptor<CustomBatchConfiguration> argumentCaptor = ArgumentCaptor.forClass(CustomBatchConfiguration.class);
+    verify(testCustomBatchJobHandler).writeConfiguration(argumentCaptor.capture());
+    assertThat(argumentCaptor.getValue()).isNotNull();
+    assertThat(argumentCaptor.getValue().isExclusive()).isFalse();
+  }
+
+  @Test
+  public void exclusive_true_is_set_to_batch_configuration() {
+    batch = CustomBatchBuilder.of(data)
+      .configuration(engineConfiguration)
+      .jobHandler(testCustomBatchJobHandler)
+      .exclusive(true)
+      .create(engineConfiguration.getCommandExecutorTxRequired());
+
+    final ArgumentCaptor<CustomBatchConfiguration> argumentCaptor = ArgumentCaptor.forClass(CustomBatchConfiguration.class);
+    verify(testCustomBatchJobHandler).writeConfiguration(argumentCaptor.capture());
+    assertThat(argumentCaptor.getValue()).isNotNull();
+    assertThat(argumentCaptor.getValue().isExclusive()).isTrue();
+  }
+
+  @Test
   public void batch_jobs_are_created() {
     batch = CustomBatchBuilder.of(data)
-      .configuration(configuration)
+      .configuration(engineConfiguration)
       .jobHandler(testCustomBatchJobHandler)
       .jobsPerSeed(4)
       .invocationsPerBatchJob(3)
-      .create(configuration.getCommandExecutorTxRequired());
+      .create(engineConfiguration.getCommandExecutorTxRequired());
 
     executeJob(getSeedJob(batch).getId());
 
@@ -136,10 +163,10 @@ public class CustomBatchBuilderTest {
     assertThat(batch.getTotalJobs()).isEqualTo(2);
   }
 
-  private Batch getDefaultBatch(List<String> data) {
+  private Batch getDefaultBatch(final List<String> data) {
     return CustomBatchBuilder.of(data)
-      .configuration(configuration)
+      .configuration(engineConfiguration)
       .jobHandler(testCustomBatchJobHandler)
-      .create(configuration.getCommandExecutorTxRequired());
+      .create(engineConfiguration.getCommandExecutorTxRequired());
   }
 }

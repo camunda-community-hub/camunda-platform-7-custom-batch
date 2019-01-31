@@ -84,11 +84,30 @@ CustomBatchBuilder.of(listOfStringData)
   .jobsPerSeed(10)
   .jobPriority(0L)
   .invocationsPerBatchJob(5)
+  .exclusive(true)
   .create(engineConfiguration.getCommandExecutorTxRequired());
 ```
 
 Note: The batch `jobPriority` is only considered when using Job Executor with the corresponding Acquisition Strategy `jobExecutorAcquireByPriority`. (see _https://docs.camunda.org/manual/latest/user-guide/process-engine/the-job-executor/#job-acquisition[camunda documentation]_) 
 The seed and monitor jobs receive the same priority as the batch.
+
+## Versions
+
+### 1.3
+
+* BREAKING CHANGE: Batch Configuration gets now saved as json
+* It's now possible to set exclusive flag for batch jobs (see _https://docs.camunda.org/manual/7.9/user-guide/process-engine/the-job-executor/#exclusive-jobs[Camunda Job Docs]_)
+
+### 1.2
+
+* Batch Job priority could be set
+
+## Roadmap
+
+**todo**
+
+- Provide a data collector class
+- Provide a timer job for automatically triggering of batch creation
 
 ## Resources
 
@@ -102,22 +121,15 @@ The seed and monitor jobs receive the same priority as the batch.
 
 * link:./CONTRIBUTE.md[Contributing] - check this if you want to contribute
 
-## Roadmap
-
-**todo**
-
-- Provide a data collector class
-- Provide a timer job for automatically triggering of batch creation
-
-**done**
-
-- Provide initial version
-
-
 ## Maintainer
 
 * [Patrick Schalk](_https://github.com/pschalk_) - [Holisticon AG](_http://www.holisticon.de/_)
 * [Stefan Becke](_https://github.com/stefanbecke_) - [Kühne + Nagel](_https://home.kuehne-nagel.com/_)
+
+## Contributors
+
+* [Jan Galinski](https://github.com/jangalinski) - [Holisticon AG](_http://www.holisticon.de/_)
+* [Nils Ernsting](https://github.com/nernsting) - [Holisticon AG](_http://www.holisticon.de/_)
 
 ## Sponsor
 

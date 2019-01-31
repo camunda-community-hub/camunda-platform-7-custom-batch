@@ -1,16 +1,16 @@
 package org.camunda.bpm.extension.batch.plugin;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Arrays;
-
 import org.camunda.bpm.engine.impl.batch.BatchJobHandler;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.Arrays;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CustomBatchHandlerPluginTest {
@@ -24,8 +24,8 @@ public class CustomBatchHandlerPluginTest {
   ProcessEngineConfigurationImpl configuration = new StandaloneInMemProcessEngineConfiguration();
 
   @Test
-  public void createPluginFromList() throws Exception {
-    CustomBatchHandlerPlugin plugin = CustomBatchHandlerPlugin.of(Arrays.asList(jobHandler, jobHandler2));
+  public void createPluginFromList() {
+    final CustomBatchHandlerPlugin plugin = CustomBatchHandlerPlugin.of(Arrays.asList(jobHandler, jobHandler2));
 
     plugin.preInit(configuration);
 
@@ -33,8 +33,8 @@ public class CustomBatchHandlerPluginTest {
   }
 
   @Test
-  public void createPluginWithSingleJobHandler() throws Exception {
-    CustomBatchHandlerPlugin plugin = CustomBatchHandlerPlugin.of(jobHandler);
+  public void createPluginWithSingleJobHandler() {
+    final CustomBatchHandlerPlugin plugin = CustomBatchHandlerPlugin.of(jobHandler);
 
     plugin.preInit(configuration);
 
@@ -42,8 +42,8 @@ public class CustomBatchHandlerPluginTest {
   }
 
   @Test
-  public void createPluginWhichDoesNothing() throws Exception {
-    CustomBatchHandlerPlugin plugin = CustomBatchHandlerPlugin.deactivate();
+  public void createPluginWhichDoesNothing() {
+    final CustomBatchHandlerPlugin plugin = CustomBatchHandlerPlugin.deactivate();
 
     plugin.preInit(configuration);
 
