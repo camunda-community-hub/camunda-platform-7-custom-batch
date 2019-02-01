@@ -10,4 +10,13 @@
 
   <groupId>${extension.groupId}</groupId>
   <artifactId>camunda-bpm-custom-batch-core</artifactId>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.7.12</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 </project>
