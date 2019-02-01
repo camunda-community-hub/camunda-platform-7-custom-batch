@@ -1,5 +1,6 @@
 package org.camunda.bpm.extension.batch.core;
 
+import java.io.Serializable;
 import org.camunda.bpm.engine.impl.batch.*;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.jobexecutor.JobDeclaration;
@@ -11,7 +12,7 @@ import org.camunda.bpm.engine.impl.persistence.entity.MessageEntity;
 
 import java.util.List;
 
-public abstract class CustomBatchCreateJobsHandler<T> implements BatchJobHandler<CustomBatchConfiguration> {
+public abstract class CustomBatchCreateJobsHandler<T extends Serializable> implements BatchJobHandler<CustomBatchConfiguration> {
 
   private final BatchJobDeclaration JOB_DECLARATION = new BatchJobDeclaration(getType());
 

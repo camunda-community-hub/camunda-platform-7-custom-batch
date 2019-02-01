@@ -1,5 +1,6 @@
 package org.camunda.bpm.extension.batch.spring;
 
+import java.io.Serializable;
 import org.camunda.bpm.engine.ProcessEngineConfiguration;
 import org.camunda.bpm.extension.batch.CustomBatchBuilder;
 
@@ -12,7 +13,7 @@ import java.util.function.Supplier;
  *
  * @param <T> the type of the batch builder
  */
-public class CustomBatchBuilderSupplier<T> implements Supplier<CustomBatchBuilder<T>>{
+public class CustomBatchBuilderSupplier<T extends Serializable> implements Supplier<CustomBatchBuilder<T>>{
 
   private final ProcessEngineConfiguration processEngineConfiguration;
 

@@ -24,12 +24,12 @@ import org.camunda.bpm.engine.impl.util.json.JSONObject;
 
 import java.io.Serializable;
 
-public class CustomBatchConfigurationJsonConverter<T> extends JsonObjectConverter<CustomBatchConfiguration<T>> {
+public class CustomBatchConfigurationJsonConverter<T extends Serializable> extends JsonObjectConverter<CustomBatchConfiguration<T>> {
 
-  static final String EXCLUSIVE = "exclusive";
-  static final String DATA_SERIALIZED = "data_serialized";
+  private static final String EXCLUSIVE = "exclusive";
+  private static final String DATA_SERIALIZED = "data_serialized";
 
-  public static <T> CustomBatchConfigurationJsonConverter<T> of() {
+  public static <T extends Serializable> CustomBatchConfigurationJsonConverter<T> of() {
     return new CustomBatchConfigurationJsonConverter<>();
   }
 

@@ -1,5 +1,6 @@
 package org.camunda.bpm.extension.batch;
 
+import java.io.Serializable;
 import org.camunda.bpm.engine.ProcessEngineConfiguration;
 import org.camunda.bpm.engine.batch.Batch;
 import org.camunda.bpm.engine.impl.batch.BatchEntity;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public class CustomBatchBuilder<T> {
+public class CustomBatchBuilder<T extends Serializable> {
 
   private final BatchEntity batch = new BatchEntity();
 
@@ -34,11 +35,11 @@ public class CustomBatchBuilder<T> {
     this.batchData = data;
   }
 
-  public static <T> CustomBatchBuilder<T> of() {
+  public static <T extends Serializable> CustomBatchBuilder<T> of() {
     return new CustomBatchBuilder<>();
   }
 
-  public static <T> CustomBatchBuilder<T> of(final List<T> data) {
+  public static <T extends Serializable> CustomBatchBuilder<T> of(final List<T> data) {
     return new CustomBatchBuilder<>(data);
   }
 

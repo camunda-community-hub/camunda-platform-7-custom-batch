@@ -1,8 +1,9 @@
 package org.camunda.bpm.extension.batch.core;
 
+import java.io.Serializable;
 import org.camunda.bpm.engine.impl.persistence.entity.ByteArrayEntity;
 
-public interface CustomBatchConfigurationHelper<T> {
+public interface CustomBatchConfigurationHelper<T extends Serializable> {
 
   CustomBatchConfiguration<T> readConfiguration(final byte[] serializedConfiguration);
 

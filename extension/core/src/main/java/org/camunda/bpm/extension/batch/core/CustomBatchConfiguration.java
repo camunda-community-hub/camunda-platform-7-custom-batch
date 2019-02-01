@@ -1,19 +1,20 @@
 package org.camunda.bpm.extension.batch.core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomBatchConfiguration<T> {
+public class CustomBatchConfiguration<T extends Serializable> {
 
   private final List<T> data;
 
   private final boolean exclusive;
 
-  public static <T> CustomBatchConfiguration<T> of(final List<T> data, final boolean exclusive) {
+  public static <T extends Serializable> CustomBatchConfiguration<T> of(final List<T> data, final boolean exclusive) {
     return new CustomBatchConfiguration<>(data, exclusive);
   }
 
-  public static <T> CustomBatchConfiguration<T> of(final List<T> data) {
+  public static <T extends Serializable> CustomBatchConfiguration<T> of(final List<T> data) {
     return new CustomBatchConfiguration<>(data);
   }
 
