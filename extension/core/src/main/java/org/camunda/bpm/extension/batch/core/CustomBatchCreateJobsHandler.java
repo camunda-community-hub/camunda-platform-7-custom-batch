@@ -1,7 +1,12 @@
 package org.camunda.bpm.extension.batch.core;
 
 import java.io.Serializable;
-import org.camunda.bpm.engine.impl.batch.*;
+import java.util.List;
+import org.camunda.bpm.engine.impl.batch.BatchEntity;
+import org.camunda.bpm.engine.impl.batch.BatchJobConfiguration;
+import org.camunda.bpm.engine.impl.batch.BatchJobContext;
+import org.camunda.bpm.engine.impl.batch.BatchJobDeclaration;
+import org.camunda.bpm.engine.impl.batch.BatchJobHandler;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.jobexecutor.JobDeclaration;
 import org.camunda.bpm.engine.impl.json.JsonObjectConverter;
@@ -9,8 +14,6 @@ import org.camunda.bpm.engine.impl.persistence.entity.ByteArrayEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.JobEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.JobManager;
 import org.camunda.bpm.engine.impl.persistence.entity.MessageEntity;
-
-import java.util.List;
 
 public abstract class CustomBatchCreateJobsHandler<T extends Serializable> implements BatchJobHandler<CustomBatchConfiguration> {
 
@@ -53,7 +56,9 @@ public abstract class CustomBatchCreateJobsHandler<T extends Serializable> imple
   }
 
   @Override
-  public JobDeclaration<BatchJobContext, MessageEntity> getJobDeclaration() { return JOB_DECLARATION; }
+  public JobDeclaration<BatchJobContext, MessageEntity> getJobDeclaration() {
+    return JOB_DECLARATION;
+  }
 
   @Override
   public void deleteJobs(final BatchEntity batch) {
@@ -86,7 +91,7 @@ public abstract class CustomBatchCreateJobsHandler<T extends Serializable> imple
   }
 
   public CustomBatchConfigurationHelper<T> configurationHelper() {
-    return CustomBatchConfigurationJsonHelper.of(jsonObjectConverter());
+    return CustomBatchConfigurationDownwardCompatibleWrapper.of(CustomBatchConfigurationJsonHelper.of(jsonObjectConverter()));
   }
 
   public JsonObjectConverter<CustomBatchConfiguration<T>> jsonObjectConverter() {
