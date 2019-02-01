@@ -15,6 +15,7 @@
  */
 package org.camunda.bpm.extension.batch.core;
 
+import java.util.Base64;
 import org.apache.commons.lang3.SerializationUtils;
 import org.camunda.bpm.engine.impl.json.JsonObjectConverter;
 import org.camunda.bpm.engine.impl.util.JsonUtil;
@@ -37,19 +38,15 @@ public class CustomBatchConfigurationJsonConverter<T> extends JsonObjectConverte
     final JSONObject json = new JSONObject();
 
     JsonUtil.addField(json, EXCLUSIVE, customBatchConfiguration.isExclusive());
-    JsonUtil.addField(json, DATA_SERIALIZED,
-      new JSONArray(SerializationUtils.serialize((Serializable) customBatchConfiguration.getData())));
+    JsonUtil.addField(json, DATA_SERIALIZED, Base64.getEncoder().encodeToString(SerializationUtils.serialize((Serializable) customBatchConfiguration.getData())));
 
     return json;
   }
 
   @Override
   public CustomBatchConfiguration<T> toObject(final JSONObject json) {
-    final JSONArray jsonArray = json.getJSONArray(DATA_SERIALIZED);
-    final byte[] byteArray = new byte[jsonArray.length()];
-    for (int n = 0; n < jsonArray.length(); n++) {
-      byteArray[n] = ((Integer)jsonArray.get(n)).byteValue();
-    }
+    final String jsonSerializedData = json.getString(DATA_SERIALIZED);
+    final byte[] byteArray = Base64.getDecoder().decode(jsonSerializedData);
 
     return CustomBatchConfiguration.of(
       SerializationUtils.deserialize(byteArray),
