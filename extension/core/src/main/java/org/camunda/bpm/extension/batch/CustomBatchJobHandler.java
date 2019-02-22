@@ -1,5 +1,6 @@
 package org.camunda.bpm.extension.batch;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.camunda.bpm.engine.impl.batch.BatchJobConfiguration;
@@ -11,7 +12,7 @@ import org.camunda.bpm.engine.impl.persistence.entity.JobEntity;
 import org.camunda.bpm.extension.batch.core.CustomBatchConfiguration;
 import org.camunda.bpm.extension.batch.core.CustomBatchCreateJobsHandler;
 
-public abstract class CustomBatchJobHandler<T> extends CustomBatchCreateJobsHandler<T> {
+public abstract class CustomBatchJobHandler<T extends Serializable> extends CustomBatchCreateJobsHandler<T> {
 
   public abstract void execute(List<T> data, CommandContext commandContext);
 

@@ -1,5 +1,6 @@
 package org.camunda.bpm.extension.batch.spring;
 
+import java.io.Serializable;
 import org.camunda.bpm.engine.impl.interceptor.CommandContext;
 import org.camunda.bpm.extension.batch.CustomBatchJobHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.Properties;
 import java.util.function.BiConsumer;
 
 /**
- * Jobhandler that encapsulates the call to {@link #executeFailsafe(Object, CommandContext)}
+ * Jobhandler that encapsulates the call to {@link #executeFailsafe(Serializable, CommandContext)}
  * in a {@link TransactionProxyFactoryBean#getObject()} to enforce a new transaction.
  *
  * Use this if you need to ensure the batch job does not fail, even when a {@link RuntimeException}
@@ -22,7 +23,7 @@ import java.util.function.BiConsumer;
  *
  * @param <T> type of the batch
  */
-public abstract class FailsafeCustomBatchJobHandler<T> extends CustomBatchJobHandler<T> {
+public abstract class FailsafeCustomBatchJobHandler<T extends Serializable> extends CustomBatchJobHandler<T> {
 
   private static Properties TRANSACTION_ATTRIBUTES = new Properties() {{
     put("*", "PROPAGATION_REQUIRES_NEW");
@@ -90,7 +91,7 @@ public abstract class FailsafeCustomBatchJobHandler<T> extends CustomBatchJobHan
   /**
    * Overwrite this for custom exception handling. Default: ignore.
    *
-   * @param runtimeException exception risen in {@link #executeFailsafe(Object, CommandContext)}.
+   * @param runtimeException exception risen in {@link #executeFailsafe(Serializable, CommandContext)}.
    */
   public void handleRuntimeException(final RuntimeException runtimeException) {
     // default: ignore

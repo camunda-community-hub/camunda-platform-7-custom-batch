@@ -140,6 +140,7 @@ The batch could be configured during building it with CustomBatchBuilder:
         .jobsPerSeed(10)
         .invocationsPerBatchJob(5)
         .jobPriority(0L)
+        .exclusive(true)
         .create(configuration.getCommandExecutorTxRequired());
 ```
 
@@ -156,7 +157,6 @@ Custom Configuration could be set with:
 ```
 CustomBatchBuilder.of().configuration(configuration)
 ```
-
 
 #### Property `jobHandler`
 
@@ -177,13 +177,17 @@ CustomBatchBuilder.of().jobsPerSeed(10)
 
 Default is 100
 
-
 #### Property `invocationsPerBatchJob`
 
 How many data should be passed to the job handler.
 
 E.g., for the process instance migration batch this specifies the number of process instances which are migrated per batch execution job.
 
+```
+CustomBatchBuilder.of().invocationsPerBatchJob(5)
+```
+
+Default is 1
 
 ### Property `jobPriority`
 
@@ -194,6 +198,18 @@ Note: The batch `jobPriority` is only considered when using Job Executor with th
 Default is 0l
 
 ```
-CustomBatchBuilder.of().invocationsPerBatchJob(5)
+CustomBatchBuilder.of().jobPriority(5L)
 ```
+
 Default is 1
+
+### Property `exclusive`
+
+Should a batch job be handled exclusive, take care when setting this to false!
+(See _https://docs.camunda.org/manual/7.9/user-guide/process-engine/the-job-executor/#exclusive-jobs[Camunda Job Docs]_)
+
+```
+CustomBatchBuilder.of().exclusive(false)
+```
+
+Default is true
