@@ -20,6 +20,8 @@ With this extension, we want to open the camunda batch functionality to everyone
 Camunda batch is really cool for offloading huge workload into small asynchronous pieces of work. E.g.:
 
 * Unclaiming / Updating a huge list of camunda tasks
+* Distribution of emails
+* Technical stuff like clean-up
 
 ## Get started
 
