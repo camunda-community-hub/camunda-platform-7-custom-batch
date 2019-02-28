@@ -13,7 +13,7 @@
 
   <groupId>org.camunda.bpm.extension.batch.project</groupId>
   <artifactId>camunda-bpm-custom-batch-root</artifactId>
-  <version>1.3.0</version>
+  <version>1.4.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -84,7 +84,7 @@
     <connection>scm:git:git@github.com:camunda/camunda-bpm-custom-batch.git</connection>
     <url>scm:git:git@github.com:camunda/camunda-bpm-custom-batch.git</url>
     <developerConnection>scm:git:git@github.com:camunda/camunda-bpm-custom-batch.git</developerConnection>
-    <tag>1.3.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <!-- repositories used for distribution of releases and snapshots, DO NOT CHANGE -->
