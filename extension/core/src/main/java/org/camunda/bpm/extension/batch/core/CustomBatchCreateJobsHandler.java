@@ -1,19 +1,16 @@
 package org.camunda.bpm.extension.batch.core;
 
-import java.io.Serializable;
-import java.util.List;
-import org.camunda.bpm.engine.impl.batch.BatchEntity;
-import org.camunda.bpm.engine.impl.batch.BatchJobConfiguration;
-import org.camunda.bpm.engine.impl.batch.BatchJobContext;
-import org.camunda.bpm.engine.impl.batch.BatchJobDeclaration;
-import org.camunda.bpm.engine.impl.batch.BatchJobHandler;
+import org.camunda.bpm.engine.impl.batch.*;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.jobexecutor.JobDeclaration;
-import org.camunda.bpm.engine.impl.json.JsonObjectConverter;
 import org.camunda.bpm.engine.impl.persistence.entity.ByteArrayEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.JobEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.JobManager;
 import org.camunda.bpm.engine.impl.persistence.entity.MessageEntity;
+import org.camunda.bpm.extension.batch.util.JsonObjectConverter;
+
+import java.io.Serializable;
+import java.util.List;
 
 public abstract class CustomBatchCreateJobsHandler<T extends Serializable> implements BatchJobHandler<CustomBatchConfiguration> {
 

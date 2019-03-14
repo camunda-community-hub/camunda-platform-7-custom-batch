@@ -15,14 +15,13 @@
  */
 package org.camunda.bpm.extension.batch.core;
 
-import java.util.Base64;
+import com.google.gson.JsonObject;
 import org.apache.commons.lang3.SerializationUtils;
-import org.camunda.bpm.engine.impl.json.JsonObjectConverter;
-import org.camunda.bpm.engine.impl.util.JsonUtil;
-import org.camunda.bpm.engine.impl.util.json.JSONArray;
-import org.camunda.bpm.engine.impl.util.json.JSONObject;
+import org.camunda.bpm.extension.batch.util.JsonObjectConverter;
+import org.camunda.bpm.extension.batch.util.JsonUtil;
 
 import java.io.Serializable;
+import java.util.Base64;
 
 public class CustomBatchConfigurationJsonConverter<T extends Serializable> extends JsonObjectConverter<CustomBatchConfiguration<T>> {
 
@@ -34,8 +33,8 @@ public class CustomBatchConfigurationJsonConverter<T extends Serializable> exten
   }
 
   @Override
-  public JSONObject toJsonObject(final CustomBatchConfiguration<T> customBatchConfiguration) {
-    final JSONObject json = new JSONObject();
+  public JsonObject toJsonObject(final CustomBatchConfiguration<T> customBatchConfiguration) {
+    final JsonObject json = new JsonObject();
 
     JsonUtil.addField(json, EXCLUSIVE, customBatchConfiguration.isExclusive());
     JsonUtil.addField(json, DATA_SERIALIZED, Base64.getEncoder().encodeToString(SerializationUtils.serialize((Serializable) customBatchConfiguration.getData())));
@@ -44,13 +43,14 @@ public class CustomBatchConfigurationJsonConverter<T extends Serializable> exten
   }
 
   @Override
-  public CustomBatchConfiguration<T> toObject(final JSONObject json) {
-    final String jsonSerializedData = json.getString(DATA_SERIALIZED);
+  public CustomBatchConfiguration<T> toObject(final JsonObject json) {
+
+    final String jsonSerializedData = JsonUtil.getString(json, DATA_SERIALIZED);
     final byte[] byteArray = Base64.getDecoder().decode(jsonSerializedData);
 
     return CustomBatchConfiguration.of(
       SerializationUtils.deserialize(byteArray),
-      json.getBoolean(EXCLUSIVE));
+      JsonUtil.getBoolean(json, EXCLUSIVE));
   }
 
 }

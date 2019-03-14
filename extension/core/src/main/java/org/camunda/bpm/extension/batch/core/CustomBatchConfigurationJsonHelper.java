@@ -1,17 +1,12 @@
 package org.camunda.bpm.extension.batch.core;
 
-import java.io.ByteArrayOutputStream;
-import java.io.Reader;
-import java.io.Serializable;
-import java.io.Writer;
 import org.camunda.bpm.engine.impl.context.Context;
-import org.camunda.bpm.engine.impl.json.JsonObjectConverter;
 import org.camunda.bpm.engine.impl.persistence.entity.ByteArrayEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.ByteArrayManager;
-import org.camunda.bpm.engine.impl.util.IoUtil;
-import org.camunda.bpm.engine.impl.util.StringUtil;
-import org.camunda.bpm.engine.impl.util.json.JSONObject;
-import org.camunda.bpm.engine.impl.util.json.JSONTokener;
+import org.camunda.bpm.extension.batch.util.JsonObjectConverter;
+import org.camunda.bpm.extension.batch.util.JsonUtil;
+
+import java.io.Serializable;
 
 public class CustomBatchConfigurationJsonHelper<T extends Serializable> implements CustomBatchConfigurationHelper<T> {
 
@@ -27,8 +22,7 @@ public class CustomBatchConfigurationJsonHelper<T extends Serializable> implemen
 
   @Override
   public CustomBatchConfiguration<T> readConfiguration(final byte[] serializedConfiguration) {
-    final Reader jsonReader = StringUtil.readerFromBytes(serializedConfiguration);
-    return converter.toObject(new JSONObject(new JSONTokener(jsonReader)));
+    return converter.toObject(JsonUtil.asObject(serializedConfiguration));
   }
 
   @Override
@@ -43,15 +37,7 @@ public class CustomBatchConfigurationJsonHelper<T extends Serializable> implemen
 
   @Override
   public byte[] writeConfiguration(final CustomBatchConfiguration<T> configuration) {
-    final JSONObject jsonObject = converter.toJsonObject(configuration);
-
-    final ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-    final Writer writer = StringUtil.writerForStream(outStream);
-
-    jsonObject.write(writer);
-    IoUtil.flushSilently(writer);
-
-    return outStream.toByteArray();
+    return JsonUtil.asBytes(converter.toJsonObject(configuration));
   }
 
 }
