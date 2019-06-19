@@ -1,28 +1,35 @@
 package org.camunda.bpm.extension.batch.core;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.persistence.entity.ByteArrayEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.ByteArrayManager;
-import org.camunda.bpm.extension.batch.util.JsonObjectConverter;
-import org.camunda.bpm.extension.batch.util.JsonUtil;
+import org.camunda.bpm.engine.impl.util.StringUtil;
 
 import java.io.Serializable;
 
 public class CustomBatchConfigurationJsonHelper<T extends Serializable> implements CustomBatchConfigurationHelper<T> {
 
-  private final JsonObjectConverter<CustomBatchConfiguration<T>> converter;
+  private final Gson gson = createGsonMapper();
 
-  private CustomBatchConfigurationJsonHelper(final JsonObjectConverter<CustomBatchConfiguration<T>> converter) {
-    this.converter = converter;
+  private CustomBatchConfigurationJsonHelper() {
   }
 
-  public static <T extends Serializable> CustomBatchConfigurationJsonHelper<T> of(final JsonObjectConverter<CustomBatchConfiguration<T>> converter) {
-    return new CustomBatchConfigurationJsonHelper<>(converter);
+  public static <T extends Serializable> CustomBatchConfigurationJsonHelper<T> of() {
+    return new CustomBatchConfigurationJsonHelper<>();
+  }
+
+  private Gson createGsonMapper() {
+    return new GsonBuilder()
+      .serializeNulls()
+      .registerTypeAdapter(CustomBatchConfiguration.class, new CustomBatchConfigurationTypeAdapter<T>())
+      .create();
   }
 
   @Override
   public CustomBatchConfiguration<T> readConfiguration(final byte[] serializedConfiguration) {
-    return converter.toObject(JsonUtil.asObject(serializedConfiguration));
+    return gson.fromJson(new String(serializedConfiguration), CustomBatchConfiguration.class);
   }
 
   @Override
@@ -37,7 +44,7 @@ public class CustomBatchConfigurationJsonHelper<T extends Serializable> implemen
 
   @Override
   public byte[] writeConfiguration(final CustomBatchConfiguration<T> configuration) {
-    return JsonUtil.asBytes(converter.toJsonObject(configuration));
+    return StringUtil.toByteArray(gson.toJson(configuration));
   }
 
 }

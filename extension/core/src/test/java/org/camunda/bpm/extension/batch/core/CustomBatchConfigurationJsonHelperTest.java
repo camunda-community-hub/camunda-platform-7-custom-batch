@@ -22,7 +22,7 @@ public class CustomBatchConfigurationJsonHelperTest extends AbstractSetupWithEng
   public void setUp() {
     super.setUp();
 
-    configurationHelper = CustomBatchConfigurationJsonHelper.of(CustomBatchConfigurationJsonConverter.of());
+    configurationHelper = CustomBatchConfigurationJsonHelper.of();
   }
 
   @Test

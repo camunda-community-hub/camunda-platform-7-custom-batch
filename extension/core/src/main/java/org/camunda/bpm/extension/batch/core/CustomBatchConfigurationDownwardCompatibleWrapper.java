@@ -1,6 +1,6 @@
 package org.camunda.bpm.extension.batch.core;
 
-import org.apache.commons.lang3.SerializationException;
+import com.google.gson.JsonSyntaxException;
 import org.apache.commons.lang3.SerializationUtils;
 import org.camunda.bpm.engine.impl.persistence.entity.ByteArrayEntity;
 import org.slf4j.Logger;
@@ -31,7 +31,7 @@ public class CustomBatchConfigurationDownwardCompatibleWrapper<T extends Seriali
   public CustomBatchConfiguration<T> readConfiguration(final byte[] serializedConfiguration) {
     try {
       return delegate.readConfiguration(serializedConfiguration);
-    } catch (final SerializationException exception) {
+    } catch (final JsonSyntaxException exception) {
       log.warn("could not read config as json / trying to parse plain list of serialized data (deprecated)");
       return CustomBatchConfiguration.of(SerializationUtils.deserialize(serializedConfiguration));
     }

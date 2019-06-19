@@ -14,16 +14,13 @@ import java.util.Objects;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CustomBatchConfigurationDownwardCompatibleWrapperTest extends AbstractSetupWithEngineConfiguration {
+public class CustomBatchConfigurationDownwardCompatibleWrapperTest {
 
   private CustomBatchConfigurationHelper configurationHelper;
 
-  @Override
   @Before
   public void setUp() {
-    super.setUp();
-
-    final CustomBatchConfigurationJsonHelper<Serializable> jsonHelper = CustomBatchConfigurationJsonHelper.of(CustomBatchConfigurationJsonConverter.of());
+    final CustomBatchConfigurationJsonHelper<Serializable> jsonHelper = CustomBatchConfigurationJsonHelper.of();
     configurationHelper = CustomBatchConfigurationDownwardCompatibleWrapper.of(jsonHelper);
   }
 
