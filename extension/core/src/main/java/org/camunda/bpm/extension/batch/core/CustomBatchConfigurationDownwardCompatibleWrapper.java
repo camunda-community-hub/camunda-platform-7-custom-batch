@@ -1,11 +1,12 @@
 package org.camunda.bpm.extension.batch.core;
 
-import java.io.Serializable;
+import com.google.gson.JsonSyntaxException;
 import org.apache.commons.lang3.SerializationUtils;
 import org.camunda.bpm.engine.impl.persistence.entity.ByteArrayEntity;
-import org.camunda.bpm.engine.impl.util.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.Serializable;
 
 /*
  * This class was used in fewer version to serialize batch data and should only guarantee downward compatibility.
@@ -30,7 +31,7 @@ public class CustomBatchConfigurationDownwardCompatibleWrapper<T extends Seriali
   public CustomBatchConfiguration<T> readConfiguration(final byte[] serializedConfiguration) {
     try {
       return delegate.readConfiguration(serializedConfiguration);
-    } catch (final JSONException exception) {
+    } catch (final JsonSyntaxException exception) {
       log.warn("could not read config as json / trying to parse plain list of serialized data (deprecated)");
       return CustomBatchConfiguration.of(SerializationUtils.deserialize(serializedConfiguration));
     }

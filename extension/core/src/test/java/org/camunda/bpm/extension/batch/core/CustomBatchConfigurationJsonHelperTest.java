@@ -1,39 +1,28 @@
 package org.camunda.bpm.extension.batch.core;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
-
-import java.io.Serializable;
-import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.camunda.bpm.engine.impl.context.Context;
-import org.camunda.bpm.engine.impl.interceptor.CommandContext;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 @RunWith(MockitoJUnitRunner.class)
-public class CustomBatchConfigurationJsonHelperTest {
-
-  @Mock
-  private ProcessEngineConfigurationImpl engineConfiguration;
-
-  @Mock
-  private CommandContext commandContext;
+public class CustomBatchConfigurationJsonHelperTest extends AbstractSetupWithEngineConfiguration {
 
   private CustomBatchConfigurationHelper configurationHelper;
 
+  @Override
   @Before
   public void setUp() {
-    configurationHelper = CustomBatchConfigurationJsonHelper.of(CustomBatchConfigurationJsonConverter.of());
-    when(engineConfiguration.getDefaultCharset()).thenReturn(Charset.defaultCharset());
-    Context.setProcessEngineConfiguration(engineConfiguration);
-    Context.setCommandContext(commandContext);
+    super.setUp();
+
+    configurationHelper = CustomBatchConfigurationJsonHelper.of();
   }
 
   @Test

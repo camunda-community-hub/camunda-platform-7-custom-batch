@@ -1,23 +1,21 @@
 package org.camunda.bpm.extension.batch.core;
 
-import java.io.Serializable;
-import java.util.List;
-import org.camunda.bpm.engine.impl.batch.BatchEntity;
-import org.camunda.bpm.engine.impl.batch.BatchJobConfiguration;
-import org.camunda.bpm.engine.impl.batch.BatchJobContext;
-import org.camunda.bpm.engine.impl.batch.BatchJobDeclaration;
-import org.camunda.bpm.engine.impl.batch.BatchJobHandler;
+import org.camunda.bpm.engine.impl.batch.*;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.jobexecutor.JobDeclaration;
-import org.camunda.bpm.engine.impl.json.JsonObjectConverter;
 import org.camunda.bpm.engine.impl.persistence.entity.ByteArrayEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.JobEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.JobManager;
 import org.camunda.bpm.engine.impl.persistence.entity.MessageEntity;
 
+import java.io.Serializable;
+import java.util.List;
+
 public abstract class CustomBatchCreateJobsHandler<T extends Serializable> implements BatchJobHandler<CustomBatchConfiguration> {
 
   private final BatchJobDeclaration JOB_DECLARATION = new BatchJobDeclaration(getType());
+
+  private final CustomBatchConfigurationHelper configurationHelper = createConfigurationHelper();
 
   @Override
   public boolean createJobs(final BatchEntity batch) {
@@ -82,7 +80,8 @@ public abstract class CustomBatchCreateJobsHandler<T extends Serializable> imple
 
   @Override
   public byte[] writeConfiguration(final CustomBatchConfiguration configuration) {
-    return configurationHelper().writeConfiguration(configuration);
+    final CustomBatchConfigurationHelper<T> configurationHelper = configurationHelper();
+    return configurationHelper.writeConfiguration(configuration);
   }
 
   @Override
@@ -91,10 +90,10 @@ public abstract class CustomBatchCreateJobsHandler<T extends Serializable> imple
   }
 
   public CustomBatchConfigurationHelper<T> configurationHelper() {
-    return CustomBatchConfigurationDownwardCompatibleWrapper.of(CustomBatchConfigurationJsonHelper.of(jsonObjectConverter()));
+    return configurationHelper;
   }
 
-  public JsonObjectConverter<CustomBatchConfiguration<T>> jsonObjectConverter() {
-    return CustomBatchConfigurationJsonConverter.of();
+  public CustomBatchConfigurationHelper<T> createConfigurationHelper() {
+    return CustomBatchConfigurationDownwardCompatibleWrapper.of(CustomBatchConfigurationJsonHelper.of());
   }
 }

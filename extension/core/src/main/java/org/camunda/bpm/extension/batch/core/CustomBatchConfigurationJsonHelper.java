@@ -1,34 +1,35 @@
 package org.camunda.bpm.extension.batch.core;
 
-import java.io.ByteArrayOutputStream;
-import java.io.Reader;
-import java.io.Serializable;
-import java.io.Writer;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.camunda.bpm.engine.impl.context.Context;
-import org.camunda.bpm.engine.impl.json.JsonObjectConverter;
 import org.camunda.bpm.engine.impl.persistence.entity.ByteArrayEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.ByteArrayManager;
-import org.camunda.bpm.engine.impl.util.IoUtil;
 import org.camunda.bpm.engine.impl.util.StringUtil;
-import org.camunda.bpm.engine.impl.util.json.JSONObject;
-import org.camunda.bpm.engine.impl.util.json.JSONTokener;
+
+import java.io.Serializable;
 
 public class CustomBatchConfigurationJsonHelper<T extends Serializable> implements CustomBatchConfigurationHelper<T> {
 
-  private final JsonObjectConverter<CustomBatchConfiguration<T>> converter;
+  private final Gson gson = createGsonMapper();
 
-  private CustomBatchConfigurationJsonHelper(final JsonObjectConverter<CustomBatchConfiguration<T>> converter) {
-    this.converter = converter;
+  private CustomBatchConfigurationJsonHelper() {
   }
 
-  public static <T extends Serializable> CustomBatchConfigurationJsonHelper<T> of(final JsonObjectConverter<CustomBatchConfiguration<T>> converter) {
-    return new CustomBatchConfigurationJsonHelper<>(converter);
+  public static <T extends Serializable> CustomBatchConfigurationJsonHelper<T> of() {
+    return new CustomBatchConfigurationJsonHelper<>();
+  }
+
+  private Gson createGsonMapper() {
+    return new GsonBuilder()
+      .serializeNulls()
+      .registerTypeAdapter(CustomBatchConfiguration.class, new CustomBatchConfigurationTypeAdapter<T>())
+      .create();
   }
 
   @Override
   public CustomBatchConfiguration<T> readConfiguration(final byte[] serializedConfiguration) {
-    final Reader jsonReader = StringUtil.readerFromBytes(serializedConfiguration);
-    return converter.toObject(new JSONObject(new JSONTokener(jsonReader)));
+    return gson.fromJson(new String(serializedConfiguration), CustomBatchConfiguration.class);
   }
 
   @Override
@@ -43,15 +44,7 @@ public class CustomBatchConfigurationJsonHelper<T extends Serializable> implemen
 
   @Override
   public byte[] writeConfiguration(final CustomBatchConfiguration<T> configuration) {
-    final JSONObject jsonObject = converter.toJsonObject(configuration);
-
-    final ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-    final Writer writer = StringUtil.writerForStream(outStream);
-
-    jsonObject.write(writer);
-    IoUtil.flushSilently(writer);
-
-    return outStream.toByteArray();
+    return StringUtil.toByteArray(gson.toJson(configuration));
   }
 
 }

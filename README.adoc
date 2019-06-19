@@ -96,6 +96,10 @@ The seed and monitor jobs receive the same priority as the batch.
 
 ## Versions
 
+### 1.4
+
+* Use gson as json converter to be compatible with camunda release 7.11
+
 ### 1.3
 
 * Batch Configuration gets now saved as json, but it's still possible to work on "old" batches because the extension is downwards compatible 
