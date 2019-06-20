@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.camunda.bpm.extension.batch.project</groupId>
     <artifactId>camunda-bpm-custom-batch-extension-root</artifactId>
-    <version>1.4.0</version>
+    <version>1.5.0-SNAPSHOT</version>
   </parent>
 
   <groupId>${extension.groupId}</groupId>
