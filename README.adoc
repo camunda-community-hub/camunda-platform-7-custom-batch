@@ -34,14 +34,14 @@ Maven Users:
 <dependency>
   <groupId>org.camunda.bpm.extension.batch</groupId>
   <artifactId>camunda-bpm-custom-batch-core</artifactId>
-  <version>1.3.0</version>
+  <version>1.4.0</version>
 </dependency>
 ```
 
 Gradle Users:
 
 ```
-compile("org.camunda.bpm.extension.batch:camunda-bpm-custom-batch-core:1.3.0")
+compile("org.camunda.bpm.extension.batch:camunda-bpm-custom-batch-core:1.4.0")
 ```
 
 First you have to define an own job handler for working on the single batch data:
