@@ -26,6 +26,8 @@ Camunda batch is really cool for offloading huge workload into small asynchronou
 
 ## Get started
 
+*ATTENTION:* Currently this extension is not compatible to camunda 7.13! See Issue _https://github.com/camunda/camunda-bpm-custom-batch/issues/29[#29]_
+
 The extension will be published on maven central, so if you are using maven, just add the dependency:
 
 Maven Users:
