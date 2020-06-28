@@ -138,7 +138,7 @@ public class CustomBatchBuilder<T extends Serializable> {
 
       commandContext.getBatchManager().insert(this.batch);
 
-      final JobDefinitionEntity seedJobDefinition = this.batch.createSeedJobDefinition();
+      final JobDefinitionEntity seedJobDefinition = this.batch.createSeedJobDefinition(null);
       final JobDefinitionEntity batchJobDefinition = this.batch.createBatchJobDefinition();
       final JobDefinitionEntity monitorJobDefinition = this.batch.createMonitorJobDefinition();
       this.batch.fireHistoricStartEvent();
