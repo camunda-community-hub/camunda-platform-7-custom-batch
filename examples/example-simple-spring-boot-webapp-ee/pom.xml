@@ -4,14 +4,14 @@
   <parent>
     <groupId>org.camunda.bpm.extension.batch.project</groupId>
     <artifactId>camunda-bpm-custom-batch-example-root</artifactId>
-    <version>1.3.0-SNAPSHOT</version>
+    <version>1.5.0-SNAPSHOT</version>
   </parent>
 
   <groupId>${example.groupId}</groupId>
   <artifactId>camunda-bpm-custom-batch-example-simple-spring-boot-webapp-ee</artifactId>
 
   <properties>
-    <camunda.version>7.9.0-ee</camunda.version>
+    <camunda.version>7.13.0-ee</camunda.version>
   </properties>
 
   <dependencyManagement>
