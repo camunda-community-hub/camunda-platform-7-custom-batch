@@ -26,8 +26,6 @@ Camunda batch is really cool for offloading huge workload into small asynchronou
 
 ## Get started
 
-*ATTENTION:* Currently this extension is not compatible to camunda 7.13! See Issue _https://github.com/camunda/camunda-bpm-custom-batch/issues/29[#29]_
-
 The extension will be published on maven central, so if you are using maven, just add the dependency:
 
 Maven Users:
@@ -36,14 +34,14 @@ Maven Users:
 <dependency>
   <groupId>org.camunda.bpm.extension.batch</groupId>
   <artifactId>camunda-bpm-custom-batch-core</artifactId>
-  <version>1.4.0</version>
+  <version>1.5.0</version>
 </dependency>
 ```
 
 Gradle Users:
 
 ```
-compile("org.camunda.bpm.extension.batch:camunda-bpm-custom-batch-core:1.4.0")
+compile("org.camunda.bpm.extension.batch:camunda-bpm-custom-batch-core:1.5.0")
 ```
 
 First you have to define an own job handler for working on the single batch data:
@@ -93,10 +91,14 @@ CustomBatchBuilder.of(listOfStringData)
   .create(engineConfiguration.getCommandExecutorTxRequired());
 ```
 
-Note: The batch `jobPriority` is only considered when using Job Executor with the corresponding Acquisition Strategy `jobExecutorAcquireByPriority`. (see _https://docs.camunda.org/manual/latest/user-guide/process-engine/the-job-executor/#job-acquisition[camunda documentation]_) 
+Note: The batch `jobPriority` is only considered when using Job Executor with the corresponding Acquisition Strategy `jobExecutorAcquireByPriority`. (see _https://docs.camunda.org/manual/latest/user-guide/process-engine/the-job-executor/#job-acquisition[camunda documentation]_)
 The seed and monitor jobs receive the same priority as the batch.
 
 ## Versions
+
+### 1.5
+
+* BREAKING CHANGES: This version is needed to be compatible with Camunda Version 7.13! (It will NOT work with with lower camunda versions)
 
 ### 1.4
 
@@ -104,7 +106,7 @@ The seed and monitor jobs receive the same priority as the batch.
 
 ### 1.3
 
-* Batch Configuration gets now saved as json, but it's still possible to work on "old" batches because the extension is downwards compatible 
+* Batch Configuration gets now saved as json, but it's still possible to work on "old" batches because the extension is downwards compatible
 * It's now possible to set exclusive flag for batch jobs (see _https://docs.camunda.org/manual/7.9/user-guide/process-engine/the-job-executor/#exclusive-jobs[Camunda Job Docs]_)
 
 ### 1.2
@@ -139,6 +141,7 @@ The seed and monitor jobs receive the same priority as the batch.
 
 * [Jan Galinski](https://github.com/jangalinski) - [Holisticon AG](_http://www.holisticon.de/_)
 * [Nils Ernsting](https://github.com/nernsting) - [Holisticon AG](_http://www.holisticon.de/_)
+* [Stefan Zilske](https://github.com/stefanzilske) - [Holisticon AG](_http://www.holisticon.de/_)
 
 ## Sponsor
 
