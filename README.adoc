@@ -34,14 +34,14 @@ Maven Users:
 <dependency>
   <groupId>org.camunda.bpm.extension.batch</groupId>
   <artifactId>camunda-bpm-custom-batch-core</artifactId>
-  <version>1.5.0</version>
+  <version>1.5.1</version>
 </dependency>
 ```
 
 Gradle Users:
 
 ```
-compile("org.camunda.bpm.extension.batch:camunda-bpm-custom-batch-core:1.5.0")
+compile("org.camunda.bpm.extension.batch:camunda-bpm-custom-batch-core:1.5.1")
 ```
 
 First you have to define an own job handler for working on the single batch data:
@@ -95,6 +95,10 @@ Note: The batch `jobPriority` is only considered when using Job Executor with th
 The seed and monitor jobs receive the same priority as the batch.
 
 ## Versions
+
+### 1.5.1
+
+* Update to use latest camunda version (7.14)
 
 ### 1.5
 
