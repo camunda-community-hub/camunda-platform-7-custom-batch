@@ -13,7 +13,7 @@
 
   <groupId>org.camunda.bpm.extension.batch.project</groupId>
   <artifactId>camunda-bpm-custom-batch-root</artifactId>
-  <version>1.6.0-SNAPSHOT</version>
+  <version>1.5.2</version>
   <packaging>pom</packaging>
 
   <modules>
