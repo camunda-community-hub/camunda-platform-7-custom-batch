@@ -1,6 +1,6 @@
 # camunda-bpm-custom-batch
 
-[cols="a,a,a,a"]
+[cols="a,a,a,a,a"]
 ,====
 // camunda batches
 image::https://img.shields.io/badge/Community%20Extension-An%20open%20source%20community%20maintained%20project-FF4700[link="https://github.com/camunda-community-hub/community"]
