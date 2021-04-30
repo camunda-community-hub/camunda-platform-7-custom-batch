@@ -31,10 +31,9 @@
     <extension.groupId>org.camunda.bpm.extension.batch</extension.groupId>
     <example.groupId>org.camunda.bpm.extension.batch.example</example.groupId>
 
-    <camunda.version>7.14.0</camunda.version>
+    <camunda.version>7.15.0</camunda.version>
     <slf4j.version>1.7.24</slf4j.version>
     <commons-lang3.version>3.5</commons-lang3.version>
-
 
     <gson.version>2.8.5</gson.version>
 
