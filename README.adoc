@@ -33,7 +33,7 @@ The extension will be published on maven central, so if you are using maven, jus
 
 Maven Users:
 
-```
+```xml
 <dependency>
   <groupId>org.camunda.bpm.extension.batch</groupId>
   <artifactId>camunda-bpm-custom-batch-core</artifactId>
@@ -43,13 +43,13 @@ Maven Users:
 
 Gradle Users:
 
-```
+```kotlin
 compile("org.camunda.bpm.extension.batch:camunda-bpm-custom-batch-core:1.5.2")
 ```
 
 First you have to define an own job handler for working on the single batch data:
 
-```
+```java
 @Component
 public class PrintStringBatchJobHandler extends CustomBatchJobHandler<String> {
   @Override
@@ -66,7 +66,7 @@ public class PrintStringBatchJobHandler extends CustomBatchJobHandler<String> {
 
 Next you have to notify the engine about this job handler, e.g. with spring-boot:
 
-```
+```java
 @Bean
 public ProcessEnginePlugin customBatchHandlerPlugin(PrintStringBatchJobHandler printStringBatchJobHandler) {
   return CustomBatchHandlerPlugin.of(printStringBatchJobHandler);
@@ -75,7 +75,7 @@ public ProcessEnginePlugin customBatchHandlerPlugin(PrintStringBatchJobHandler p
 
 Finally, the creation of the batch itself:
 
-```
+```java
 CustomBatchBuilder.of(listOfStringData)
   .jobHandler(printStringBatchJobHandler)
   .create();
@@ -83,7 +83,7 @@ CustomBatchBuilder.of(listOfStringData)
 
 Or with more configuration:
 
-```
+```java
 CustomBatchBuilder.of(listOfStringData)
   .configuration(engineConfiguration)
   .jobHandler(printStringBatchJobHandler)
