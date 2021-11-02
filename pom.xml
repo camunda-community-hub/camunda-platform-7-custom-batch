@@ -5,11 +5,11 @@
   <!-- Attention: to properly separate dependencies of extension and examples, do not define any dependencies/management here! -->
 
   <parent>
-    <groupId>org.camunda</groupId>
-    <artifactId>camunda-release-parent</artifactId>
-    <version>3.7</version>
+    <groupId>org.camunda.community</groupId>
+    <artifactId>community-hub-release-parent</artifactId>
+    <version>1.2.2</version>    
     <relativePath />
-  </parent>
+  </parent> 
 
   <groupId>org.camunda.bpm.extension.batch.project</groupId>
   <artifactId>camunda-bpm-custom-batch-root</artifactId>
