@@ -7,13 +7,13 @@
   <parent>
     <groupId>org.camunda.community</groupId>
     <artifactId>community-hub-release-parent</artifactId>
-    <version>1.2.2</version>    
+    <version>1.2.2</version>
     <relativePath />
-  </parent> 
+  </parent>
 
   <groupId>org.camunda.bpm.extension.batch.project</groupId>
   <artifactId>camunda-bpm-custom-batch-root</artifactId>
-  <version>1.5.3-SNAPSHOT</version>
+  <version>1.6.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -31,7 +31,7 @@
     <extension.groupId>org.camunda.bpm.extension.batch</extension.groupId>
     <example.groupId>org.camunda.bpm.extension.batch.example</example.groupId>
 
-    <camunda.version>7.15.0</camunda.version>
+    <camunda.version>7.16.0</camunda.version>
     <slf4j.version>1.7.24</slf4j.version>
     <commons-lang3.version>3.5</commons-lang3.version>
 
