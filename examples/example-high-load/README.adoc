@@ -1,0 +1,10 @@
+# High load example with spring boot
+
+Example where we have a high load on job executors with jobs which needs a little bit longer.
+Start with mvn spring-boot:run.
+
+## H2 Console
+
+http://localhost:8080/h2-console
+
+jdbc url -> jdbc:h2:mem:test

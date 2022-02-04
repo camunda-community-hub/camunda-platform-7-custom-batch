@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: simpleApplication
+  datasource:
+    url: jdbc:h2:mem:test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+
+server.port: 8080
+
+camunda:
+  bpm:
+    application:
+      isDeleteUponUndeploy: false
+      isScanForProcessDefinitions: false
+      isDeployChangedOnly: true
+      isResumePreviousVersions: true
+      resumePreviousBy: a value
+    job-execution:
+      enabled: true
+    metrics:
+      enabled: false
+      db-reporter-activate: false
+    admin-user:
+      id: admin
+      password: admin
