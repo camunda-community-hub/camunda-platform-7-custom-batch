@@ -40,7 +40,9 @@
     <camunda-spring-boot.version>${camunda.version}</camunda-spring-boot.version>
     <spring-boot.version>2.5.6</spring-boot.version>
 
-    <h2.version>2.0.206</h2.version>
+    <!-- is needed for camunda, upgrade could be done after camunda 7.17 is released -->
+    <!-- https://forum.camunda.org/t/camunda-not-compatible-with-h2-2-0-202/32250/5 -->
+    <h2.version>1.4.187</h2.version>
 
     <surefire.runOrder>reversealphabetical</surefire.runOrder>
   </properties>

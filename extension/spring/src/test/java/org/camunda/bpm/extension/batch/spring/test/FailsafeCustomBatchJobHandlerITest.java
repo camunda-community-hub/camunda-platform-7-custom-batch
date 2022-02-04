@@ -20,6 +20,7 @@ import org.camunda.bpm.extension.batch.spring.CustomBatchBuilderSupplier;
 import org.camunda.bpm.extension.batch.spring.FailsafeCustomBatchJobHandler;
 import org.camunda.bpm.model.bpmn.Bpmn;
 import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
