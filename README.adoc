@@ -5,8 +5,8 @@
 // camunda batches
 image::https://img.shields.io/badge/Community%20Extension-An%20open%20source%20community%20maintained%20project-FF4700[link="https://github.com/camunda-community-hub/community"]
 image::https://img.shields.io/badge/Lifecycle-Stable-brightgreen[link="https://github.com/Camunda-Community-Hub/community/blob/main/extension-lifecycle.md#stable-"]
-// mvn travis
-image::https://travis-ci.org/camunda/camunda-bpm-custom-batch.svg?branch=master[link="https://travis-ci.org/camunda/camunda-bpm-custom-batch"]
+// github actions batch
+image::https://github.com/camunda-community-hub/camunda-bpm-custom-batch/actions/workflows/build.yml/badge.svg[link="https://github.com/camunda-community-hub/camunda-bpm-custom-batch/actions/workflows/build.yml"]
 // license
 image::https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="./LICENSE"]
 // mvn central
