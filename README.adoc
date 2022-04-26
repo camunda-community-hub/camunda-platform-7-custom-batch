@@ -102,7 +102,7 @@ The seed and monitor jobs receive the same priority as the batch.
 
 ### 1.6.0
 
-* Update to use latest camunda version (7.17)
+* Update to use latest camunda version (7.17) + spring boot (2.6.3)
 * *ATTENTION:* new maven coordinates!
 ```
   <groupId>org.camunda.community.batch</groupId>
