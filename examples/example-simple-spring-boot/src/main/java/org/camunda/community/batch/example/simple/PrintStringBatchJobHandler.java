@@ -1,11 +1,11 @@
 package org.camunda.community.batch.example.simple;
 
-import java.util.List;
-
 import org.camunda.bpm.engine.impl.interceptor.CommandContext;
 import org.camunda.community.batch.CustomBatchJobHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class PrintStringBatchJobHandler extends CustomBatchJobHandler<String> {
 

@@ -1,4 +1,4 @@
-# camunda-bpm-custom-batch User Guide
+# camunda-platform-7-custom-batch User Guide
 
 ## What Is Camunda Batch
 
@@ -89,9 +89,9 @@ public ProcessEnginePlugin customBatchHandlerPlugin(PrintStringBatchJobHandler p
     <property name="processEnginePlugins">
       <list>
 
-        <bean class="org.camunda.bpm.extension.batch.plugin.CustomBatchHandlerPlugin">
+        <bean class="org.camunda.community.batch.plugin.CustomBatchHandlerPlugin">
           <constructor-arg>
-            <bean class="org.camunda.bpm.extension.batch.example.simple.PrintStringBatchJobHandler"/>
+            <bean class="org.camunda.community.batch.example.simple.PrintStringBatchJobHandler"/>
           </constructor-arg>
         </bean>
 
@@ -101,9 +101,9 @@ public ProcessEnginePlugin customBatchHandlerPlugin(PrintStringBatchJobHandler p
 
 Examples:
 
-* _https://github.com/camunda/camunda-bpm-custom-batch/blob/master/examples/example-simple/src/main/webapp/WEB-INF/applicationContext.xml[applicationContext.xml]_
+* _https://github.com/camunda/camunda-platform-7-custom-batch/blob/master/examples/example-simple/src/main/webapp/WEB-INF/applicationContext.xml[applicationContext.xml]_
 
-* _https://github.com/camunda/camunda-bpm-custom-batch/blob/master/extension/core/src/test/resources/camunda.cfg.xml[camunda.cfg.xml]_
+* _https://github.com/camunda/camunda-platform-7-custom-batch/blob/master/extension/core/src/test/resources/camunda.cfg.xml[camunda.cfg.xml]_
 
 ### Create the Batch
 

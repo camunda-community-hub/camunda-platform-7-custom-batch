@@ -1,16 +1,17 @@
-# camunda-bpm-custom-batch
+# camunda-platform-7-custom-batch
 
 [cols="a,a,a,a,a"]
 ,====
 // camunda batches
 image::https://img.shields.io/badge/Community%20Extension-An%20open%20source%20community%20maintained%20project-FF4700[link="https://github.com/camunda-community-hub/community"]
 image::https://img.shields.io/badge/Lifecycle-Stable-brightgreen[link="https://github.com/Camunda-Community-Hub/community/blob/main/extension-lifecycle.md#stable-"]
+image::https://img.shields.io/badge/Compatible%20with-Camunda%20Platform%207-26d07c["Compatible with: Camunda Platform 7"]
 // github actions batch
-image::https://github.com/camunda-community-hub/camunda-bpm-custom-batch/actions/workflows/build.yml/badge.svg[link="https://github.com/camunda-community-hub/camunda-bpm-custom-batch/actions/workflows/build.yml"]
+image::https://github.com/camunda-community-hub/camunda-platform-7-custom-batch/actions/workflows/build.yml/badge.svg[link="https://github.com/camunda-community-hub/camunda-platform-7-custom-batch/actions/workflows/build.yml"]
 // license
 image::https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="./LICENSE"]
 // mvn central
-image::https://maven-badges.herokuapp.com/maven-central/org.camunda.bpm.extension.batch/camunda-bpm-custom-batch-core/badge.svg[link="https://maven-badges.herokuapp.com/maven-central/org.camunda.bpm.extension.batch/camunda-bpm-custom-batch-core"]
+image::https://maven-badges.herokuapp.com/maven-central/org.camunda.community.batch/camunda-platform-7-custom-batch-core/badge.svg[link="https://maven-badges.herokuapp.com/maven-central/org.camunda.community.batch/camunda-platform-7-custom-batch-core"]
 ,====
 
 
@@ -35,16 +36,16 @@ Maven Users:
 
 ```xml
 <dependency>
-  <groupId>org.camunda.bpm.extension.batch</groupId>
-  <artifactId>camunda-bpm-custom-batch-core</artifactId>
-  <version>1.5.2</version>
+  <groupId>org.camunda.community.batch</groupId>
+  <artifactId>camunda-platform-7-custom-batch-core</artifactId>
+  <version>1.6.0</version>
 </dependency>
 ```
 
 Gradle Users:
 
 ```kotlin
-compile("org.camunda.bpm.extension.batch:camunda-bpm-custom-batch-core:1.5.2")
+compile("org.camunda.community.batch:camunda-platform-7-custom-batch-core:1.6.0")
 ```
 
 First you have to define an own job handler for working on the single batch data:
@@ -99,6 +100,16 @@ The seed and monitor jobs receive the same priority as the batch.
 
 ## Versions
 
+### 1.6.0
+
+* Update to use latest camunda version (7.17)
+* *ATTENTION:* new maven coordinates!
+```
+  <groupId>org.camunda.community.batch</groupId>
+  <artifactId>camunda-platform-7-custom-batch-core</artifactId>
+```
+* *ATTENTION 2:* java package path changed from `org.camunda.bpm.extension.batch` to `org.camunda.community.batch`
+
 ### 1.5.2
 
 * Update to use latest camunda version (7.15)
@@ -135,13 +146,13 @@ The seed and monitor jobs receive the same priority as the batch.
 
 * link:./extension/README.adoc[User Guide]
 
-* _https://github.com/camunda/camunda-bpm-custom-batch/issues[Issue Tracker]_
+* _https://github.com/camunda-community-hub/camunda-platform-7-custom-batch/issues[Issue Tracker]_
 
 * _https://forum.camunda.org/c/community-extensions/custom-batch[Discussion Forum]_
 
 * _https://docs.camunda.org/manual/latest/user-guide/process-engine/batch/[Camunda Batch Docs]_
 
-* link:./CONTRIBUTE.md[Contributing] - check this if you want to contribute
+* link:./CONTRIBUTING.md[Contributing] - check this if you want to contribute
 
 ## Maintainer
 

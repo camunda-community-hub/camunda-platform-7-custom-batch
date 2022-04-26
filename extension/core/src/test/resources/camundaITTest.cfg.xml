@@ -12,9 +12,9 @@
 
     <property name="processEnginePlugins">
       <list>
-        <bean class="org.camunda.bpm.extension.batch.plugin.CustomBatchHandlerPlugin">
+        <bean class="org.camunda.community.batch.plugin.CustomBatchHandlerPlugin">
           <constructor-arg>
-            <bean class="org.camunda.bpm.extension.batch.testhelper.TestCustomBatchJobHandler"/>
+            <bean class="org.camunda.community.batch.testhelper.TestCustomBatchJobHandler"/>
           </constructor-arg>
         </bean>
       </list>

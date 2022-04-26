@@ -2,7 +2,7 @@
 
 There are several ways in which you may contribute to this project.
 
-* [File issues](https://github.com/camunda/camunda-bpm-custom-batch/issues)
+* [File issues](https://github.com/camunda/camunda-platform-7-custom-batch/issues)
 * [Submit a pull requests](#submit-a-pull-request)
 
 Read more on [how to get the project up and running](#project-setup).

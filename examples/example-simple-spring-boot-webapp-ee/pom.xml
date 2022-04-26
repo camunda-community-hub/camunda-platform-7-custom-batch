@@ -2,13 +2,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.camunda.bpm.extension.batch.project</groupId>
-    <artifactId>camunda-bpm-custom-batch-example-root</artifactId>
+    <groupId>org.camunda.community.batch.project</groupId>
+    <artifactId>camunda-platform-7-custom-batch-example-root</artifactId>
     <version>1.5.0-SNAPSHOT</version>
   </parent>
 
   <groupId>${example.groupId}</groupId>
-  <artifactId>camunda-bpm-custom-batch-example-simple-spring-boot-webapp-ee</artifactId>
+  <artifactId>camunda-platform-7-custom-batch-example-simple-spring-boot-webapp-ee</artifactId>
 
   <properties>
     <camunda.version>7.13.0-ee</camunda.version>
@@ -36,7 +36,7 @@
 
     <dependency>
       <groupId>${extension.groupId}</groupId>
-      <artifactId>camunda-bpm-custom-batch-spring</artifactId>
+      <artifactId>camunda-platform-7-custom-batch-spring</artifactId>
       <version>${project.version}</version>
     </dependency>
 
@@ -65,9 +65,9 @@
 
   <repositories>
     <repository>
-      <id>camunda-bpm-ee</id>
-      <name>camunda-bpm-ee</name>
-      <url>https://artifacts.camunda.com/artifactory/camunda-bpm-ee/</url>
+      <id>camunda-platform-7-ee</id>
+      <name>camunda-platform-7-ee</name>
+      <url>https://artifacts.camunda.com/artifactory/camunda-platform-7-ee/</url>
     </repository>
   </repositories>
 </project>

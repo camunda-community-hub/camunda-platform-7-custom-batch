@@ -22,12 +22,12 @@ import org.springframework.context.event.EventListener;
 
 @SpringBootApplication
 @EnableProcessApplication
-public class SimpleSpringBootWithWebappApplication {
+public class SimpleSpringBootApplication {
 
-  private static final Logger logger = LoggerFactory.getLogger(SimpleSpringBootWithWebappApplication.class);
+  private static final Logger logger = LoggerFactory.getLogger(SimpleSpringBootApplication.class);
 
   public static void main(final String... args) {
-    SpringApplication.run(SimpleSpringBootWithWebappApplication.class, args);
+    SpringApplication.run(SimpleSpringBootApplication.class, args);
   }
 
   @Bean
