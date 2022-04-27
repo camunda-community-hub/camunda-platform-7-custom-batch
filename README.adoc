@@ -103,12 +103,12 @@ The seed and monitor jobs receive the same priority as the batch.
 ### 1.6.0
 
 * Update to use latest camunda version (7.17) + spring boot (2.6.3)
+* *BREAKING CHANGE:* java package path changed from `org.camunda.bpm.extension.batch` to `org.camunda.community.batch`
 * *ATTENTION:* new maven coordinates!
 ```
   <groupId>org.camunda.community.batch</groupId>
   <artifactId>camunda-platform-7-custom-batch-core</artifactId>
 ```
-* *ATTENTION 2:* java package path changed from `org.camunda.bpm.extension.batch` to `org.camunda.community.batch`
 
 ### 1.5.2
 
