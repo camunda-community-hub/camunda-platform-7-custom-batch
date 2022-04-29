@@ -11,8 +11,8 @@
     <relativePath />
   </parent>
 
-  <groupId>org.camunda.bpm.extension.batch.project</groupId>
-  <artifactId>camunda-bpm-custom-batch-root</artifactId>
+  <groupId>org.camunda.community.batch</groupId>
+  <artifactId>camunda-platform-7-custom-batch-root</artifactId>
   <version>1.6.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
@@ -28,17 +28,17 @@
     <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
     <project.build.resourceEncoding>${encoding}</project.build.resourceEncoding>
 
-    <extension.groupId>org.camunda.bpm.extension.batch</extension.groupId>
-    <example.groupId>org.camunda.bpm.extension.batch.example</example.groupId>
+    <extension.groupId>org.camunda.community.batch</extension.groupId>
+    <example.groupId>org.camunda.community.batch.example</example.groupId>
 
-    <camunda.version>7.16.0</camunda.version>
+    <camunda.version>7.17.0</camunda.version>
     <slf4j.version>1.7.24</slf4j.version>
     <commons-lang3.version>3.12.0</commons-lang3.version>
 
     <gson.version>2.8.9</gson.version>
 
     <camunda-spring-boot.version>${camunda.version}</camunda-spring-boot.version>
-    <spring-boot.version>2.5.6</spring-boot.version>
+    <spring-boot.version>2.6.3</spring-boot.version>
 
     <!-- is needed for camunda, upgrade could be done after camunda 7.17 is released -->
     <!-- https://forum.camunda.org/t/camunda-not-compatible-with-h2-2-0-202/32250/5 -->
@@ -58,7 +58,7 @@
       </dependency>
 
       <dependency>
-        <artifactId>camunda-bpm-custom-batch-core</artifactId>
+        <artifactId>camunda-platform-7-custom-batch-core</artifactId>
         <groupId>${extension.groupId}</groupId>
         <version>${project.version}</version>
       </dependency>
@@ -87,9 +87,9 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:git@github.com:camunda/camunda-bpm-custom-batch.git</connection>
-    <url>scm:git:git@github.com:camunda/camunda-bpm-custom-batch.git</url>
-    <developerConnection>scm:git:git@github.com:camunda/camunda-bpm-custom-batch.git</developerConnection>
+    <connection>scm:git:git@github.com:camunda/camunda-platform-7-custom-batch.git</connection>
+    <url>scm:git:git@github.com:camunda/camunda-platform-7-custom-batch.git</url>
+    <developerConnection>scm:git:git@github.com:camunda/camunda-platform-7-custom-batch.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
@@ -98,12 +98,12 @@
     <repository>
       <id>camunda-nexus</id>
       <name>camunda bpm community extensions</name>
-      <url>https://artifacts.camunda.com/artifactory/camunda-bpm-community-extensions/</url>
+      <url>https://artifacts.camunda.com/artifactory/camunda-platform-7-community-extensions/</url>
     </repository>
     <snapshotRepository>
       <id>camunda-nexus</id>
       <name>camunda bpm community extensions snapshots</name>
-      <url>https://artifacts.camunda.com/artifactory/camunda-bpm-community-extensions-snapshots/</url>
+      <url>https://artifacts.camunda.com/artifactory/camunda-platform-7-community-extensions-snapshots/</url>
       <!-- for maven 2 compatibility -->
       <uniqueVersion>true</uniqueVersion>
     </snapshotRepository>
