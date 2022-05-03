@@ -93,21 +93,6 @@
     <tag>HEAD</tag>
   </scm>
 
-  <!-- repositories used for distribution of releases and snapshots, DO NOT CHANGE -->
-  <distributionManagement>
-    <repository>
-      <id>camunda-nexus</id>
-      <name>camunda bpm community extensions</name>
-      <url>https://artifacts.camunda.com/artifactory/camunda-platform-7-community-extensions/</url>
-    </repository>
-    <snapshotRepository>
-      <id>camunda-nexus</id>
-      <name>camunda bpm community extensions snapshots</name>
-      <url>https://artifacts.camunda.com/artifactory/camunda-platform-7-community-extensions-snapshots/</url>
-      <!-- for maven 2 compatibility -->
-      <uniqueVersion>true</uniqueVersion>
-    </snapshotRepository>
-  </distributionManagement>
   <profiles>
     <profile>
       <id>community-action-maven-release</id>
