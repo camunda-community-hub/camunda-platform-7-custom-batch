@@ -9,6 +9,7 @@ import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.interceptor.CommandExecutor;
 import org.camunda.bpm.engine.impl.persistence.entity.JobDefinitionEntity;
+import org.camunda.bpm.engine.impl.util.ClockUtil;
 import org.camunda.community.batch.core.CustomBatchConfiguration;
 
 import java.util.List;
@@ -163,6 +164,8 @@ public class CustomBatchBuilder<T extends Serializable> {
     if (this.engineConfiguration == null) {
       this.engineConfiguration = Context.getProcessEngineConfiguration();
     }
+
+    this.batch.setStartTime(ClockUtil.getCurrentTime());
 
     if (this.batch.getBatchJobsPerSeed() == 0) {
       this.batch.setBatchJobsPerSeed(this.engineConfiguration.getBatchJobsPerSeed());
