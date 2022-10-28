@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.camunda.community.batch</groupId>
     <artifactId>camunda-platform-7-custom-batch-extension-root</artifactId>
-    <version>1.18.0</version>
+    <version>1.18.1-SNAPSHOT</version>
   </parent>
 
   <groupId>${extension.groupId}</groupId>
