@@ -45,7 +45,7 @@ Maven Users:
 Gradle Users:
 
 ```kotlin
-compile("org.camunda.community.batch:camunda-platform-7-custom-batch-core:1.10.0")
+compile("org.camunda.community.batch:camunda-platform-7-custom-batch-core:1.18.0")
 ```
 
 First you have to define an own job handler for working on the single batch data:
