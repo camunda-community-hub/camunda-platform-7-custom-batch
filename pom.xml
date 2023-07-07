@@ -40,7 +40,7 @@
     <camunda-spring-boot.version>${camunda.version}</camunda-spring-boot.version>
     <spring-boot.version>2.7.3</spring-boot.version>
 
-    <h2.version>2.1.214</h2.version>
+    <h2.version>2.2.220</h2.version>
 
     <surefire.runOrder>reversealphabetical</surefire.runOrder>
   </properties>
