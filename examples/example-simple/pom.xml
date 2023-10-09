@@ -12,7 +12,7 @@
   <packaging>war</packaging>
 
   <properties>
-    <spring.version>5.3.23</spring.version>
+    <spring.version>6.0.0</spring.version>
     <javax.servlet-api.version>3.0.1</javax.servlet-api.version>
   </properties>
 
