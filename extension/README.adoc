@@ -9,9 +9,9 @@ By default, the batch will create 100 jobs, where each job will work on one proc
 After this, it will create another 100 jobs and so on, until the work on all instances is finished.
 Benefit of this is that the migration will not block anything and that there is not just one big transaction.
 
-Additionally, the cockpit already provides a view to monitor batches. (_https://docs.camunda.org/manual/7.6/webapps/cockpit/batch/monitoring/[See also]_)
+Additionally, the cockpit already provides a view to monitor batches. (_https://docs.camunda.org/manual/7.19/webapps/cockpit/batch/monitoring/[See also]_)
 
-For more information regarding Camunda Batch, visit also Camunda's user guide: _https://docs.camunda.org/manual/7.6/user-guide/process-engine/batch/[User Guide]_
+For more information regarding Camunda Batch, visit also Camunda's user guide: _https://docs.camunda.org/manual/7.19/user-guide/process-engine/batch/[User Guide]_
 
 ## Why This Extension?
 
