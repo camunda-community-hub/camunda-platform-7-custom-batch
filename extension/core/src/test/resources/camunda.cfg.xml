@@ -8,7 +8,7 @@
         class="org.camunda.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
 
     <property name="jobExecutorActivate" value="false"/>
-    <property name="databaseSchemaUpdate" value="true"/>
+    <property name="databaseSchemaUpdate" value="create-drop"/>
 
     <property name="processEnginePlugins">
       <list>

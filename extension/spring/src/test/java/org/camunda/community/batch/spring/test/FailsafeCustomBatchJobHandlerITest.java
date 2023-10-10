@@ -1,6 +1,5 @@
 package org.camunda.community.batch.spring.test;
 
-import org.awaitility.Duration;
 import org.camunda.bpm.engine.HistoryService;
 import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.RuntimeService;
@@ -15,15 +14,13 @@ import org.camunda.bpm.engine.impl.history.HistoryLevel;
 import org.camunda.bpm.engine.impl.interceptor.CommandContext;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
+import org.camunda.bpm.model.bpmn.Bpmn;
+import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication;
 import org.camunda.community.batch.plugin.CustomBatchHandlerPlugin;
 import org.camunda.community.batch.spring.CustomBatchBuilderSupplier;
 import org.camunda.community.batch.spring.FailsafeCustomBatchJobHandler;
-import org.camunda.bpm.model.bpmn.Bpmn;
-import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,18 +28,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.PlatformTransactionManager;
+
+import java.time.Duration;
 
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = FailsafeCustomBatchJobHandlerITest.FailsafeApplication.class)
 public class FailsafeCustomBatchJobHandlerITest {
-
-  private static final Logger logger = LoggerFactory.getLogger(FailsafeCustomBatchJobHandlerITest.class);
 
   @SpringBootApplication
   @EnableProcessApplication
@@ -128,11 +125,12 @@ public class FailsafeCustomBatchJobHandlerITest {
   private HistoryService historyService;
 
   @Test
-  public void no_failed_jobs() throws InterruptedException {
+  public void no_failed_jobs() {
 
     repositoryService.createDeployment()
       .addModelInstance("dummy.bpmn",
         Bpmn.createExecutableProcess("dummy")
+          .camundaHistoryTimeToLive(1)
           .startEvent()
           .userTask("task").camundaTaskListenerDelegateExpression(TaskListener.EVENTNAME_ASSIGNMENT, "${onAssignmentListener}").camundaAssignee("user")
           .endEvent()
@@ -146,8 +144,8 @@ public class FailsafeCustomBatchJobHandlerITest {
 
     // Fails when no successful batch was written after 5 seconds
     await()
-      .pollDelay(Duration.FIVE_HUNDRED_MILLISECONDS)
-      .atMost(Duration.FIVE_SECONDS)
+      .pollDelay(Duration.ofMillis(500))
+      .atMost(Duration.ofSeconds(5))
       .untilAsserted(() -> {
         HistoricBatch historicBatch = historyService.createHistoricBatchQuery().singleResult();
         assertThat(historicBatch).isNotNull();
