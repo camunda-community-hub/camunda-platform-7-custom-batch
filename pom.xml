@@ -31,14 +31,14 @@
     <extension.groupId>org.camunda.community.batch</extension.groupId>
     <example.groupId>org.camunda.community.batch.example</example.groupId>
 
-    <camunda.version>7.18.0</camunda.version>
+    <camunda.version>7.19.0</camunda.version>
     <slf4j.version>2.0.1</slf4j.version>
     <commons-lang3.version>3.12.0</commons-lang3.version>
 
     <gson.version>2.9.1</gson.version>
 
     <camunda-spring-boot.version>${camunda.version}</camunda-spring-boot.version>
-    <spring-boot.version>2.7.3</spring-boot.version>
+    <spring-boot.version>2.7.9</spring-boot.version>
 
     <h2.version>2.2.220</h2.version>
 
