@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.camunda.bpm.engine.test.assertions.ProcessEngineAssertions.processEngine;
+import static org.camunda.bpm.engine.test.assertions.bpmn.AbstractAssertions.processEngine;
 import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.managementService;
 import static org.camunda.community.batch.testhelper.CustomBatchTestHelper.*;
 import static org.mockito.Mockito.spy;
