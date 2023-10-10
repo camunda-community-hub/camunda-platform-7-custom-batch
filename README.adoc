@@ -4,6 +4,7 @@
 ,====
 // camunda batches
 image::https://img.shields.io/badge/Community%20Extension-An%20open%20source%20community%20maintained%20project-FF4700[link="https://github.com/camunda-community-hub/community"]
+image::https://img.shields.io/badge/Camunda%20Version-7.20-orange.svg[link="https://docs.camunda.org/manual/7.20/"]
 image::https://img.shields.io/badge/Lifecycle-Stable-brightgreen[link="https://github.com/Camunda-Community-Hub/community/blob/main/extension-lifecycle.md#stable-"]
 image::https://img.shields.io/badge/Compatible%20with-Camunda%20Platform%207-26d07c["Compatible with: Camunda Platform 7"]
 // github actions batch
@@ -38,14 +39,14 @@ Maven Users:
 <dependency>
   <groupId>org.camunda.community.batch</groupId>
   <artifactId>camunda-platform-7-custom-batch-core</artifactId>
-  <version>1.19.4</version>
+  <version>1.20.0</version>
 </dependency>
 ```
 
 Gradle Users:
 
 ```kotlin
-compile("org.camunda.community.batch:camunda-platform-7-custom-batch-core:1.19.4")
+compile("org.camunda.community.batch:camunda-platform-7-custom-batch-core:1.20.0")
 ```
 
 First you have to define an own job handler for working on the single batch data:
@@ -99,6 +100,11 @@ Note: The batch `jobPriority` is only considered when using Job Executor with th
 The seed and monitor jobs receive the same priority as the batch.
 
 ## Versions
+
+### 1.20.0
+
+* BREAKING CHANGE: Update to use latest camunda version (7.20) + Spring Boot 3
+
 
 ### 1.19.4
 

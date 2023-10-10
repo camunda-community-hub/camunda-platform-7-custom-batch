@@ -22,8 +22,10 @@
   </modules>
 
   <properties>
-    <java.version>11</java.version>
+    <java.version>17</java.version>
     <version.java>${java.version}</version.java>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
 
     <encoding>UTF-8</encoding>
     <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
@@ -32,16 +34,16 @@
     <extension.groupId>org.camunda.community.batch</extension.groupId>
     <example.groupId>org.camunda.community.batch.example</example.groupId>
 
-    <camunda.version>7.19.0</camunda.version>
-    <slf4j.version>2.0.1</slf4j.version>
+    <camunda.version>7.20.0</camunda.version>
+    <slf4j.version>2.0.9</slf4j.version>
     <commons-lang3.version>3.12.0</commons-lang3.version>
 
     <gson.version>2.9.1</gson.version>
 
     <camunda-spring-boot.version>${camunda.version}</camunda-spring-boot.version>
-    <spring-boot.version>2.7.9</spring-boot.version>
+    <spring-boot.version>3.1.1</spring-boot.version>
 
-    <h2.version>2.2.220</h2.version>
+    <h2.version>2.2.224</h2.version>
 
     <surefire.runOrder>reversealphabetical</surefire.runOrder>
   </properties>
@@ -77,8 +79,8 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
         </configuration>
       </plugin>
     </plugins>

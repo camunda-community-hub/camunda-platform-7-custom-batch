@@ -1,6 +1,7 @@
 package org.camunda.community.batch.core;
 
 import org.camunda.bpm.engine.impl.batch.*;
+import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.jobexecutor.JobDeclaration;
 import org.camunda.bpm.engine.impl.persistence.entity.ByteArrayEntity;
@@ -10,6 +11,7 @@ import org.camunda.bpm.engine.impl.persistence.entity.MessageEntity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 public abstract class CustomBatchCreateJobsHandler<T extends Serializable> implements BatchJobHandler<CustomBatchConfiguration> {
 
@@ -89,6 +91,18 @@ public abstract class CustomBatchCreateJobsHandler<T extends Serializable> imple
     return configurationHelper().readConfiguration(serializedConfiguration);
   }
 
+  @Override
+  public int calculateInvocationsPerBatchJob(String batchType, CustomBatchConfiguration configuration) {
+    ProcessEngineConfigurationImpl engineConfig = Context.getProcessEngineConfiguration();
+    Map<String, Integer> invocationsPerBatchJobByBatchType = engineConfig.getInvocationsPerBatchJobByBatchType();
+    Integer invocationCount = invocationsPerBatchJobByBatchType.get(batchType);
+    if (invocationCount != null) {
+      return invocationCount;
+    } else {
+      return engineConfig.getInvocationsPerBatchJob();
+    }
+  }
+
   public CustomBatchConfigurationHelper<T> configurationHelper() {
     return configurationHelper;
   }
@@ -96,4 +110,5 @@ public abstract class CustomBatchCreateJobsHandler<T extends Serializable> imple
   public CustomBatchConfigurationHelper<T> createConfigurationHelper() {
     return CustomBatchConfigurationDownwardCompatibleWrapper.of(CustomBatchConfigurationJsonHelper.of());
   }
+
 }
