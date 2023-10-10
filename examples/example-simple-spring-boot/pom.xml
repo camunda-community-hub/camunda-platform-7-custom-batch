@@ -7,7 +7,7 @@
     <version>1.18.2-SNAPSHOT</version>
   </parent>
 
-  <groupId>${example.groupId}</groupId>
+  <groupId>org.camunda.community.batch.example</groupId>
   <artifactId>camunda-platform-7-custom-batch-example-simple-spring-boot</artifactId>
 
   <dependencyManagement>
@@ -31,7 +31,7 @@
     </dependency>
 
     <dependency>
-      <groupId>${extension.groupId}</groupId>
+      <groupId>org.camunda.community.batch</groupId>
       <artifactId>camunda-platform-7-custom-batch-spring</artifactId>
       <version>${project.version}</version>
     </dependency>
