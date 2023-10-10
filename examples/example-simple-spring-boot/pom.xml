@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.camunda.community.batch</groupId>
     <artifactId>camunda-platform-7-custom-batch-example-root</artifactId>
-    <version>1.18.2-SNAPSHOT</version>
+    <version>1.19.4</version>
   </parent>
 
   <groupId>org.camunda.community.batch.example</groupId>
