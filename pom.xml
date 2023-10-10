@@ -22,7 +22,7 @@
   </modules>
 
   <properties>
-    <java.version>1.8</java.version>
+    <java.version>11</java.version>
 
     <encoding>UTF-8</encoding>
     <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
@@ -97,6 +97,14 @@
     <tag>HEAD</tag>
   </scm>
 
+  <developers>
+    <developer>
+      <name>Patrick Schalk</name>
+      <organization>Holisticon AG</organization>
+      <organizationUrl>http://holisticon.de</organizationUrl>
+    </developer>
+  </developers>
+
   <profiles>
     <profile>
       <id>community-action-maven-release</id>
@@ -105,22 +113,22 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.6</version>
+            <version>3.1.0</version>
             <executions>
-                <execution>
-                    <id>sign-artifacts</id>
-                    <phase>verify</phase>
-                    <goals>
-                        <goal>sign</goal>
-                    </goals>
-                </execution>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
             </executions>
             <configuration>
-                <!-- Prevent gpg from using pinentry programs -->
-                <gpgArguments>
-                    <arg>--pinentry-mode</arg>
-                    <arg>loopback</arg>
-                </gpgArguments>
+              <!-- Prevent gpg from using pinentry programs -->
+              <gpgArguments>
+                <arg>--pinentry-mode</arg>
+                <arg>loopback</arg>
+              </gpgArguments>
             </configuration>
           </plugin>
         </plugins>
