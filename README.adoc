@@ -38,14 +38,14 @@ Maven Users:
 <dependency>
   <groupId>org.camunda.community.batch</groupId>
   <artifactId>camunda-platform-7-custom-batch-core</artifactId>
-  <version>1.19.0</version>
+  <version>1.19.4</version>
 </dependency>
 ```
 
 Gradle Users:
 
 ```kotlin
-compile("org.camunda.community.batch:camunda-platform-7-custom-batch-core:1.19.0")
+compile("org.camunda.community.batch:camunda-platform-7-custom-batch-core:1.19.4")
 ```
 
 First you have to define an own job handler for working on the single batch data:
@@ -100,7 +100,7 @@ The seed and monitor jobs receive the same priority as the batch.
 
 ## Versions
 
-### 1.19.0
+### 1.19.4
 
 * Update to use latest camunda version (7.19)
 
