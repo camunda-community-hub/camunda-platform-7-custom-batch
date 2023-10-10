@@ -13,7 +13,7 @@
 
   <groupId>org.camunda.community.batch</groupId>
   <artifactId>camunda-platform-7-custom-batch-root</artifactId>
-  <version>1.19.5-SNAPSHOT</version>
+  <version>1.20.1</version>
   <packaging>pom</packaging>
 
   <modules>
