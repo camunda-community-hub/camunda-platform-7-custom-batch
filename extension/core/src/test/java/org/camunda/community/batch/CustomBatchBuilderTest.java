@@ -4,13 +4,14 @@ import org.camunda.bpm.engine.batch.Batch;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.management.JobDefinition;
 import org.camunda.bpm.engine.runtime.Job;
-import org.camunda.bpm.engine.test.ProcessEngineRule;
+import org.camunda.bpm.engine.test.junit5.ProcessEngineExtension;
 import org.camunda.community.batch.core.CustomBatchConfiguration;
 import org.camunda.community.batch.testhelper.TestCustomBatchJobHandler;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 
 import java.util.ArrayList;
@@ -18,16 +19,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.camunda.bpm.engine.test.assertions.bpmn.AbstractAssertions.processEngine;
 import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.managementService;
+import static org.camunda.bpm.engine.test.assertions.bpmn.AbstractAssertions.processEngine;
 import static org.camunda.community.batch.testhelper.CustomBatchTestHelper.*;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
+@ExtendWith(ProcessEngineExtension.class)
 public class CustomBatchBuilderTest {
-
-  @Rule
-  public ProcessEngineRule processEngineRule = new ProcessEngineRule();
 
   private Batch batch;
 
@@ -37,16 +36,21 @@ public class CustomBatchBuilderTest {
 
   private final List<String> data = Arrays.asList("Test", "Test2", "Test3", "Test4");
 
-  @Before
+  @BeforeEach
   public void setUp() {
     engineConfiguration = (ProcessEngineConfigurationImpl) processEngine().getProcessEngineConfiguration();
     engineConfiguration.setCustomBatchJobHandlers(new ArrayList<>());
     engineConfiguration.getCustomBatchJobHandlers().add(testCustomBatchJobHandler);
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     managementService().deleteBatch(batch.getId(), true);
+  }
+
+  @AfterAll
+  public static void close() {
+    processEngine().close();
   }
 
   @Test

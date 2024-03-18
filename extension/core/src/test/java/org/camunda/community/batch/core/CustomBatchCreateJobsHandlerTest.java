@@ -10,13 +10,15 @@ import org.camunda.bpm.engine.impl.persistence.entity.JobEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.JobManager;
 import org.camunda.bpm.engine.impl.persistence.entity.MessageEntity;
 import org.camunda.community.batch.CustomBatchJobHandler;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class CustomBatchCreateJobsHandlerTest {
 
   private static final String BATCH_JOB_DEFINITION_ID = "1";
@@ -51,7 +53,7 @@ public class CustomBatchCreateJobsHandlerTest {
 
   private final CustomBatchConfiguration<String> configuration = CustomBatchConfiguration.of(testData, false);
 
-  @Before
+  @BeforeEach
   public void setUp() {
     when(configurationHelper.readConfiguration(any())).thenReturn(configuration);
 
@@ -140,6 +142,7 @@ public class CustomBatchCreateJobsHandlerTest {
   }
 
   @Test
+  @MockitoSettings(strictness = Strictness.LENIENT)
   public void deleteJobs() {
     final JobEntity jobEntity = mock(JobEntity.class);
     final JobEntity jobEntity2 = mock(JobEntity.class);
@@ -154,6 +157,7 @@ public class CustomBatchCreateJobsHandlerTest {
   }
 
   @Test
+  @MockitoSettings(strictness = Strictness.LENIENT)
   public void writeConfiguration() {
     jobHandler.writeConfiguration(configuration);
 
@@ -161,6 +165,7 @@ public class CustomBatchCreateJobsHandlerTest {
   }
 
   @Test
+  @MockitoSettings(strictness = Strictness.LENIENT)
   public void readConfiguration() {
     final String configString = "some bytes";
     jobHandler.readConfiguration(configString.getBytes());
