@@ -12,7 +12,7 @@
   <packaging>war</packaging>
 
   <properties>
-    <spring.version>6.0.9</spring.version>
+    <spring.version>6.0.18</spring.version>
   </properties>
 
   <dependencies>
