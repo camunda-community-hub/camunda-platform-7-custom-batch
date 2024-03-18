@@ -15,7 +15,7 @@
     <junit.version>5.9.3</junit.version>
     <mockito.version>5.6.0</mockito.version>
     <assertj-core.version>3.24.2</assertj-core.version>
-    <awaitility.version>4.2.0</awaitility.version>
+    <awaitility.version>4.2.1</awaitility.version>
   </properties>
 
   <modules>
