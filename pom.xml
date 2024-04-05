@@ -34,7 +34,7 @@
     <extension.groupId>org.camunda.community.batch</extension.groupId>
     <example.groupId>org.camunda.community.batch.example</example.groupId>
 
-    <camunda.version>7.20.0</camunda.version>
+    <camunda.version>7.21.0</camunda.version>
     <slf4j.version>2.0.12</slf4j.version>
     <commons-lang3.version>3.14.0</commons-lang3.version>
 
