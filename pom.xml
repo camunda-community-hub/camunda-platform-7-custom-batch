@@ -41,7 +41,7 @@
     <gson.version>2.11.0</gson.version>
 
     <camunda-spring-boot.version>${camunda.version}</camunda-spring-boot.version>
-    <spring-boot.version>3.3.1</spring-boot.version>
+    <spring-boot.version>3.3.3</spring-boot.version>
 
     <h2.version>2.3.230</h2.version>
 
