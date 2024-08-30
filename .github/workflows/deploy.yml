@@ -27,7 +27,7 @@ jobs:
           gpg-passphrase: MAVEN_CENTRAL_GPG_PASSPHRASE
 
       - name: Deploy SNAPSHOT / Release
-        uses: camunda-community-hub/community-action-maven-release@v1.2.1
+        uses: camunda-community-hub/community-action-maven-release@v1.2.2
         with:
           release-version: ${{ github.event.release.tag_name }}
           nexus-usr: ${{ secrets.NEXUS_USR }}
