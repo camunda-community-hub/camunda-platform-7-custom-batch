@@ -35,7 +35,7 @@
     <example.groupId>org.camunda.community.batch.example</example.groupId>
 
     <camunda.version>7.21.0</camunda.version>
-    <slf4j.version>2.0.13</slf4j.version>
+    <slf4j.version>2.0.16</slf4j.version>
     <commons-lang3.version>3.17.0</commons-lang3.version>
 
     <gson.version>2.11.0</gson.version>
