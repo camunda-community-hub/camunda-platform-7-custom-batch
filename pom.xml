@@ -16,9 +16,22 @@
   <version>1.20.2-SNAPSHOT</version>
   <packaging>pom</packaging>
 
+  <!-- Inform users that this artifact has been relocated to new Maven coordinates. -->
+  <distributionManagement>
+    <relocation>
+      <groupId>io.holunda.c7._</groupId>
+      <artifactId>c7-custom-batch-parent</artifactId>
+      <version>2025.12.2</version>
+      <message>
+        This artifact has moved: please use io.holunda.c7._:c7-custom-batch-parent.
+        The org.camunda.community.batch:camunda-platform-7-custom-batch-root 1.20.x line is final; update your dependency coordinates.
+        See https://github.com/holunda-io/c7 for the new location.
+      </message>
+    </relocation>
+  </distributionManagement>
+
   <modules>
     <module>extension</module>
-    <module>examples</module>
   </modules>
 
   <properties>
@@ -89,7 +102,7 @@
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
     </license>
   </licenses>
 
@@ -136,6 +149,17 @@
           </plugin>
         </plugins>
       </build>
+    </profile>
+    <profile>
+      <id>examples</id>
+      <activation>
+        <property>
+          <name>!skipExamples</name>
+        </property>
+      </activation>
+      <modules>
+        <module>examples</module>
+      </modules>
     </profile>
   </profiles>
 </project>
