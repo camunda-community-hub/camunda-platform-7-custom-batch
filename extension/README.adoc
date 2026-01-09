@@ -1,8 +1,18 @@
-# camunda-platform-7-custom-batch User Guide
+== camunda-platform-7-custom-batch User Guide
 
-## What Is Camunda Batch
+[CAUTION]
+.Discontinued/Moved
+====
+Due to the end of live of Camunda 7 CE with 7.24, we decided to discontinue this extension and archive the repository.
+The Release 1.20.2 will be the last one.
 
-Currently Camunda Batch is mainly used for offloading the workload of internal commands like e.g. process migration or process cancellation.
+However, we included the *current state* of the extension into the link:https://github.com/holunda-io/c7/[holunda-io/c7] repository, where we will maintain it together with other extensions and keep it working for future C7-EE releases.
+====
+
+
+=== What Is Camunda Batch
+
+Currently, Camunda Batch is mainly used for offloading the workload of internal commands like e.g. process migration or process cancellation.
 
 So if you for example select 10000 processes for process migration, the engine will create a batch which will handle those instances in small chunks.
 By default, the batch will create 100 jobs, where each job will work on one process migration. (In it's own transaction!)
@@ -13,17 +23,17 @@ Additionally, the cockpit already provides a view to monitor batches. (_https://
 
 For more information regarding Camunda Batch, visit also Camunda's user guide: _https://docs.camunda.org/manual/7.20/user-guide/process-engine/batch/[User Guide]_
 
-## Why This Extension?
+=== Why This Extension?
 
-Using Camunda Batch for your own purposes is a very time consuming and complex thing.
-With this extension it will be much more easier to create an own batch.
+Using Camunda Batch for your own purposes is a very time-consuming and complex thing.
+With this extension it will be much easier to create an own batch.
 This could be helpful to offload huge workload like doing reassignments of user tasks.
 
-# How to Use
+== How to Use
 
-## Overview
+=== Overview
 
-A new batch is created with help of the the `CustomBatchBuilder` and a specific `BatchJobHandler` for a set of batch data.
+A new batch is created with help of the `CustomBatchBuilder` and a specific `BatchJobHandler` for a set of batch data.
 The `BatchJobHandler` has two functions: Help creating all the necessary jobs and processing the individual items from the batch data.
 
 With the default configuration, there will exist one job for each data item.
@@ -31,9 +41,9 @@ The jobs are created in small chunks which have to be processed until the next c
 
 Each job will have it's piece of data processed by calling the same `BatchJobHandler`.
 
-## Implementation Steps
+=== Implementation Steps
 
-### Provide Implementation of CustomBatchJobHandler
+==== Provide Implementation of CustomBatchJobHandler
 
 You have to provide two methods:
 
@@ -71,7 +81,7 @@ The abstract `CustomBatchJobHandler` takes care about:
 
 * Cleanup of Jobs + Configuration
 
-### Register CustomBatchJobHandler Implementation
+==== Register CustomBatchJobHandler Implementation
 
 You have to register the implementation of the job handler during startup of engine.
 This can be done by passing the job handler to the `CustomBatchHandlerPlugin` and adding this plugin to the engine.
@@ -105,14 +115,14 @@ Examples:
 
 * _https://github.com/camunda/camunda-platform-7-custom-batch/blob/master/extension/core/src/test/resources/camunda.cfg.xml[camunda.cfg.xml]_
 
-### Create the Batch
+==== Create the Batch
 
 For creating the batch, you have to use the `CustomBatchBuilder`.
 
 In the minimum setting (with default batch values and configuration from Context) this looks like:
 
 ```
- final Batch batch = CustomBatchBuilder.of(data) #List of Objects which should be processed
+ final Batch batch = CustomBatchBuilder.of(data) =List of Objects which should be processed
         .jobHandler(printStringBatchJobHandler)
         .create();
 ```
@@ -129,7 +139,7 @@ The builder takes care about:
 
 * Saves you from handling with ConfigurationBytes
 
-### Configuration of the Batch
+==== Configuration of the Batch
 
 The batch could be configured during building it with CustomBatchBuilder:
 
@@ -144,7 +154,7 @@ The batch could be configured during building it with CustomBatchBuilder:
         .create(configuration.getCommandExecutorTxRequired());
 ```
 
-#### Property `configuration`
+===== Property `configuration`
 
 Per default, the builder tries to get the process engine configuration from context.
 
@@ -158,7 +168,7 @@ Custom Configuration could be set with:
 CustomBatchBuilder.of().configuration(configuration)
 ```
 
-#### Property `jobHandler`
+===== Property `jobHandler`
 
 Here you have to provide the batch job handler which should be used by the batch.
 
@@ -166,7 +176,7 @@ Here you have to provide the batch job handler which should be used by the batch
 CustomBatchBuilder.of().jobHandler(printStringBatchJobHandler)
 ```
 
-#### Property  `jobsPerSeed`
+===== Property  `jobsPerSeed`
 
 Number of batch execution jobs created per seed job invocation.
 The batch seed job is invoked until it has created all batch execution jobs required by the batch.
@@ -175,9 +185,9 @@ The batch seed job is invoked until it has created all batch execution jobs requ
 CustomBatchBuilder.of().jobsPerSeed(10)
 ```
 
-Default is 100
+Default is 100.
 
-#### Property `invocationsPerBatchJob`
+===== Property `invocationsPerBatchJob`
 
 How many data should be passed to the job handler.
 
@@ -187,26 +197,26 @@ E.g., for the process instance migration batch this specifies the number of proc
 CustomBatchBuilder.of().invocationsPerBatchJob(5)
 ```
 
-Default is 1
+Default is 1.
 
-### Property `jobPriority`
+==== Property `jobPriority`
 
 Priority of the seed job + monitoring job + batch jobs.
 
-Note: The batch `jobPriority` is only considered when using Job Executor with the corresponding Acquisition Strategy `jobExecutorAcquireByPriority`. (see _https://docs.camunda.org/manual/latest/user-guide/process-engine/the-job-executor/#job-acquisition[camunda documentation]_)
+Note: The batch `jobPriority` is only considered when using Job Executor with the corresponding Acquisition Strategy `jobExecutorAcquireByPriority`. (see _https://docs.camunda.org/manual/latest/user-guide/process-engine/the-job-executor/=job-acquisition[camunda documentation]_)
 
-Default is 0l
+Default is 0l.
 
 ```
 CustomBatchBuilder.of().jobPriority(5L)
 ```
 
-Default is 1
+Default is 1.
 
-### Property `exclusive`
+==== Property `exclusive`
 
 Should a batch job be handled exclusive, take care when setting this to false!
-(See _https://docs.camunda.org/manual/7.9/user-guide/process-engine/the-job-executor/#exclusive-jobs[Camunda Job Docs]_)
+(See _https://docs.camunda.org/manual/7.9/user-guide/process-engine/the-job-executor/=exclusive-jobs[Camunda Job Docs]_)
 
 ```
 CustomBatchBuilder.of().exclusive(false)
